@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	--font-family: 'Comfortaa', serif;
+	font-family: var(--font-family);
+}
+
+body {
+	margin: 0;
+	display: flex;
+	min-width: 320px;
+	min-height: 100vh;
+}
+* {
+	font-family: var(--font-family);
+}
+
+#root {
+	flex-grow: 1;
+	height: 100vh;
+	width: 100%;
+}
+
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
+input,
+button {
+	font-family: var(--font-family);
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-5px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
