@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('https://alsu-sm.github.io/interview_support/sw.js', { scope: 'https://alsu-sm.github.io/interview_support/' })})}
