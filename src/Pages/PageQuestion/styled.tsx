@@ -5,7 +5,7 @@ export const QuestionTitle = styled('div')(({ theme }) => ({
 }));
 export const QuestionDescription = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(8),
-	color: theme.text.soft,
+	color: theme.text.tertiary,
 }));
 
 export const QuestionTitleGroup = styled('div')(({ theme }) => ({

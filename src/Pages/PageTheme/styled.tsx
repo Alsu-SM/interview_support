@@ -5,7 +5,7 @@ export const ThemeTitle = styled('div')(({ theme }) => ({
 }));
 export const ThemeDescription = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(8),
-	color: theme.text.soft,
+	color: theme.text.secondary,
 }));
 
 export const ThemeTitleGroup = styled('div')(({ theme }) => ({

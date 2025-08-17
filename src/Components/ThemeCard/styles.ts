@@ -1,29 +1,22 @@
 import { createCSSFunction } from '../../Utils/createCSSFunction';
-import { ThemeCardMessage, ThemeCardRow } from './styled';
 
 export const cssThemeCard = createCSSFunction(({ theme }) => ({
-	background: theme.bg.soft,
+	background: theme.bg.primary,
+	padding: theme.spacing(10),
+	fontSize: theme.spacing(8),
 	border: 'none',
-	padding: theme.spacing(2, 3),
 	margin: '0',
-	borderRadius: theme.spacing(2),
+	opacity: 0.7,
 	width: '100%',
-	height: theme.spacing(25),
+	borderRadius: theme.spacing(10),
+	height: theme.spacing(125),
 	boxSizing: 'border-box',
 	display: 'flex',
-	flexDirection: 'column',
-	gap: theme.spacing(2),
-	fontSize: theme.spacing(3.5),
-	boxShadow: theme.boxShadow,
-	justifyContent: 'space-between',
-	[`&:hover, &:focus`]: {
-		background: theme.bg.base,
+	transitionProperty: 'opacity',
+	transitionDuration: theme.transition.duration.standard,
+	transitionTimingFunction: theme.transition.timing.easeInOut,
+	[`&:hover, &:active, &:focus-visible`]: {
 		cursor: 'pointer',
-		[String(ThemeCardMessage)]: {
-			display: 'initial',
-		},
-		[String(ThemeCardRow)]: {
-			display: 'none',
-		},
+		opacity: 1,
 	},
 }));

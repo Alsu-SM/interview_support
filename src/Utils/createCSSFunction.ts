@@ -42,9 +42,15 @@ export type CreateCSSFunctionType<
 	callback: CallbackType<TProps, TRequiredTheme>,
 ) => ICSSFunction<TProps, TRequiredTheme>;
 
-export const createCSSFunction: CreateCSSFunctionType =
-	(callback) => (props) => {
-		const currentProps = (props ?? {}) as IThemeWithProps;
+export const createCSSFunction =
+	<
+		TProps extends Record<PropertyKey, any> = Record<never, never>,
+		TRequiredTheme extends boolean = true,
+	>(
+		callback: CallbackType<TProps, TRequiredTheme>,
+	) =>
+	(props: TProps) => {
+		const currentProps = (props ?? {}) as unknown as IThemeWithProps<TProps>;
 		const result =
 			typeof callback === 'function' ? callback(currentProps) : callback;
 

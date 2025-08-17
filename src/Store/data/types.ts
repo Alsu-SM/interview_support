@@ -18,6 +18,8 @@ export interface ITheme {
 
 export interface IThemeExtended extends ITheme {
 	isLearnt: boolean;
+	progress: number;
+	studiedQuestionsCount: number;
 	tags: string[];
 }
 

@@ -10,7 +10,7 @@ export const cssScrollbar = createCSSFunction(({ theme }) => ({
 	'&::-webkit-scrollbar-track': {
 		width: theme.spacing(1),
 		height: theme.spacing(1),
-		background: theme.border.muted,
+		background: theme.text.tertiary,
 		borderRadius: theme.spacing(1.5),
 		border: `${theme.spacing(1)} solid transparent`,
 		backgroundClip: 'padding-box',
@@ -18,7 +18,7 @@ export const cssScrollbar = createCSSFunction(({ theme }) => ({
 	'&::-webkit-scrollbar-thumb': {
 		width: theme.spacing(1),
 		height: theme.spacing(1),
-		background: theme.border.base,
+		background: theme.text.secondary,
 		borderRadius: theme.spacing(1.5),
 		border: `${theme.spacing(1)} solid transparent`,
 		backgroundClip: 'padding-box',

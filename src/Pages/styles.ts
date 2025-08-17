@@ -1,9 +1,11 @@
 import { createCSSFunction } from '../Utils/createCSSFunction';
 
 export const cssPage = createCSSFunction(({ theme }) => ({
-	background: theme.bg.contrast,
-	color: theme.text.base,
-	padding: theme.spacing(8),
+	background: theme.bg.page,
+	backgroundRepeat: 'no-repeat',
+	backgroundSize: 'cover',
+	color: theme.text.primary,
+	padding: theme.spacing(10, 20),
 	boxSizing: 'border-box',
 	height: '100dvh',
 	overflow: 'hidden',

@@ -76,7 +76,25 @@ export const getThemeExtendedSelector: IDataSliceSelectors['getThemeExtended'] =
 				}, []),
 			),
 		);
-		const isLearnt = !questions.some((question) => !question.isLearnt);
 
-		return { ...theme, questions, tags, isLearnt };
+		const studiedQuestionsCount = questions.reduce((count, question) => {
+			if (question.isLearnt) {
+				count++;
+			}
+
+			return count;
+		}, 0);
+
+		const isLearnt = studiedQuestionsCount === questions.length;
+
+		const progress = (studiedQuestionsCount / questions.length) * 100;
+
+		return {
+			...theme,
+			questions,
+			tags,
+			isLearnt,
+			progress,
+			studiedQuestionsCount,
+		};
 	});

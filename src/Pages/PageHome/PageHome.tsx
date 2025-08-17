@@ -3,12 +3,12 @@ import { FC } from 'react';
 import { ComponentPropsBase } from '../../types';
 import { ThemesList } from '../../Containers/ThemesList/ThemesList';
 import { cssPage } from '../styles';
-import { Greetings } from '../../Containers/Greetings';
+import { Navbar } from '../../Containers/Navbar';
 
 const PageHomeUnstyled: FC<ComponentPropsBase> = ({ className }) => {
 	return (
 		<div className={className}>
-			<Greetings />
+			<Navbar />
 			<ThemesList />
 		</div>
 	);

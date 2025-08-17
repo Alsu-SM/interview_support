@@ -7,10 +7,15 @@ export const cssThemesListOrderedListWrapper = createCSSFunction(
 	({ theme }) => [
 		{
 			display: 'grid',
-			gap: theme.spacing(4),
+			gap: theme.spacing(15),
 			overflow: 'hidden auto',
-			gridTemplateColumns: `repeat(auto-fit, minmax(350px, 1fr))`,
+			gridTemplateColumns: `repeat(auto-fit, minmax(450px, 1fr))`,
 			gridAutoRows: 'min-content',
+			background: theme.bg.secondary,
+			padding: theme.spacing(14),
+			borderRadius: theme.spacing(10),
+			boxShadow: theme.boxShadow.primary,
+			backdropFilter: theme.filter.blur.primary,
 		},
 		cssScrollbar,
 	],
@@ -23,7 +28,7 @@ export const ThemesListOrderedListWrapper = styled('div')(
 export const CreateThemeButton = styled('button')(({ theme }) => [
 	cssThemeCard,
 	{
-		color: theme.text.base,
+		color: theme.text.primary,
 		fontSize: theme.spacing(5),
 		width: 'fit-content',
 		height: 'fit-content',
