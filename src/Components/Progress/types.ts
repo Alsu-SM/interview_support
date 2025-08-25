@@ -1,5 +1,5 @@
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 
-export interface IProgressProps extends ComponentPropsBase {
+export interface IProgressProps extends IComponentBaseProps {
 	value: number;
 }

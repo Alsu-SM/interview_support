@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 import { ThemesList } from '../../Containers/ThemesList/ThemesList';
 import { cssPage } from '../styles';
 import { Navbar } from '../../Containers/Navbar';
 
-const PageHomeUnstyled: FC<ComponentPropsBase> = ({ className }) => {
+const PageHomeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	return (
 		<div className={className}>
 			<Navbar />

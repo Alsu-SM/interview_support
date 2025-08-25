@@ -1,5 +1,5 @@
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 
-export interface IInnerHTMLContentProps extends ComponentPropsBase {
+export interface IInnerHTMLContentProps extends IComponentBaseProps {
 	content: string;
 }

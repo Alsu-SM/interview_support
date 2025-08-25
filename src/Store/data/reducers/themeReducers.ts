@@ -70,6 +70,6 @@ export const setIsCreateThemeActiveReducer: IDataSliceReducers[IDataSliceActions
 
 		return {
 			...state,
-			ui: { ...state.ui, setIsCreateThemeActive: payload.isActive },
+			ui: { ...state.ui, isCreateThemeActive: payload.isActive },
 		};
 	};

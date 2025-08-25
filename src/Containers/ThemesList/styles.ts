@@ -6,6 +6,6 @@ export const cssThemesList = createCSSFunction(({ theme }) => [
 		display: 'flex',
 		flexDirection: 'column',
 		overflow: 'hidden',
-		gap: theme.spacing(4),
+		gap: theme.spacing(10),
 	},
 ]);

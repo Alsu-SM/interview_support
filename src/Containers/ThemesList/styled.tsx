@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { createCSSFunction } from '../../Utils/createCSSFunction';
 import { cssScrollbar } from '../../Utils/scrollbar';
-import { cssThemeCard } from '../../Components/ThemeCard';
 
 export const cssThemesListOrderedListWrapper = createCSSFunction(
 	({ theme }) => [
@@ -26,12 +25,42 @@ export const ThemesListOrderedListWrapper = styled('div')(
 );
 
 export const CreateThemeButton = styled('button')(({ theme }) => [
-	cssThemeCard,
 	{
+		background: theme.bg.primary,
+		border: 'none',
+		padding: theme.spacing(5),
 		color: theme.text.primary,
-		fontSize: theme.spacing(5),
-		width: 'fit-content',
-		height: 'fit-content',
-		padding: theme.spacing(3, 6),
+		width: theme.spacing(25),
+		height: theme.spacing(25),
+		borderRadius: '50%',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		boxSizing: 'border-box',
+		cursor: 'pointer',
+		opacity: 0.7,
+		marginLeft: 'auto',
+		marginTop: 'auto',
+		['&:hover']: {
+			opacity: 1,
+		},
+	},
+]);
+
+export const CreateThemeButtonInline = styled('button')(({ theme }) => [
+	{
+		background: 'transparent',
+		border: 'none',
+		fontSize: 'inherit',
+		color: 'inherit',
+		transitionDuration: theme.transition.duration.standard,
+		transitionTimingFunction: theme.transition.timing.easeInOut,
+		borderBottom: `${theme.spacing(1)} dashed ${theme.text.tertiary}`,
+
+		['&:hover']: {
+			color: theme.bg.accent,
+			borderBottomColor: theme.bg.accent,
+			cursor: 'pointer',
+		},
 	},
 ]);

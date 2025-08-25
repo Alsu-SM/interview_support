@@ -3,6 +3,7 @@ import { IThemeCardProps } from './types';
 import styled from '@emotion/styled';
 import { cssThemeCard } from './styles';
 import {
+	ThemeCardButtonsWrapper,
 	ThemeCardDescription,
 	ThemeCardLabel,
 	ThemeCardProgress,
@@ -13,6 +14,8 @@ import {
 } from './styled';
 import { useThemeCard } from './hooks';
 import { Progress } from '../Progress/Progress';
+import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import { IconEdit, IconDelete } from '../Icons';
 
 const ThemeCardUnstyled: FC<IThemeCardProps> = ({
 	id,
@@ -26,6 +29,8 @@ const ThemeCardUnstyled: FC<IThemeCardProps> = ({
 		shownTags,
 		tagsMore,
 		handleClick,
+		handleEdit,
+		handleDelete,
 	} = useThemeCard({
 		theme: themeData,
 	});
@@ -39,6 +44,10 @@ const ThemeCardUnstyled: FC<IThemeCardProps> = ({
 			key={id}
 		>
 			<ThemeCardWrapper>
+				<ThemeCardButtonsWrapper>
+					<ButtonIcon icon={<IconEdit />} onClick={handleEdit} />
+					<ButtonIcon icon={<IconDelete />} danger onClick={handleDelete} />
+				</ThemeCardButtonsWrapper>
 				<ThemeCardRow>
 					<ThemeCardLabel>Theme:</ThemeCardLabel>
 					<ThemeCardValue title={themeData.name}>

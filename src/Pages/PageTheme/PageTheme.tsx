@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 import { cssPage } from '../styles';
 import { usePageTheme } from './hooks';
 import { PageWarningMessage } from '../styled';
 import { ThemeDescription, ThemeTitle, ThemeTitleGroup } from './styled';
 import { ThemeQuestionsList } from '../../Containers/ThemeQuestionsList';
 
-const PageThemeUnstyled: FC<ComponentPropsBase> = ({ className }) => {
+const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const { themeData } = usePageTheme();
 	if (!themeData) {
 		return (

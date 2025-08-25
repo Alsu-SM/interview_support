@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAppTheme } from '../Store';
 import { ThemeProvider } from '@emotion/react';
-import { ComponentPropsBase } from '../types';
+import { IComponentBaseProps } from '../types';
 
-function App({ className }: ComponentPropsBase) {
+function App({ className }: IComponentBaseProps) {
 	const theme = useSelector(getAppTheme);
 
 	return (

@@ -181,7 +181,12 @@ export interface IGetTheme {
 	id: ITheme['id'];
 }
 
+export interface IGetUI {
+	id: ITheme['id'];
+}
+
 export type IDataSliceSelectors = {
+	getUI: Selector<IDataSlice, IUserInterface>;
 	getQuestions: Selector<IDataSlice, IQuestion[]>;
 	getThemes: Selector<IDataSlice, ITheme[]>;
 	getQuestion: Selector<IDataSlice, IQuestion | undefined, [IGetQuestion]>;

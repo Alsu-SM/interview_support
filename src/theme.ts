@@ -31,11 +31,13 @@ export const themeLight = {
 			secondary: 'rgba(0,0,0,0.1)',
 		},
 		accent: 'rgba(51,90, 174, 1)',
+		accentDark: 'rgba(37, 62, 116, 1)',
 	},
 	text: {
 		primary: 'rgba(0, 0, 0, 0.8)',
 		secondary: 'rgba(0, 0, 0, 0.5)',
 		tertiary: 'rgba(0, 0, 0, 0.3)',
+		danger: 'rgba(215, 57, 57, 0.7)',
 	},
 };
 export type IAppTheme = typeof themeLight;
@@ -52,11 +54,13 @@ export const themeDark: IAppTheme = {
 			secondary: 'rgba(255, 255, 255,0.1)',
 		},
 		accent: 'rgba(122,153, 221, 1)',
+		accentDark: 'rgba(61, 81, 124, 1)',
 	},
 	text: {
 		primary: 'rgba(255, 255, 255, 0.8)',
 		secondary: 'rgba(255, 255, 255, 0.5)',
 		tertiary: 'rgba(255, 255, 255, 0.3)',
+		danger: 'rgba(215, 57, 57, 0.8)',
 	},
 };
 export const theme = {

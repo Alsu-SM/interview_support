@@ -8,8 +8,14 @@ import {
 	IQuestionExtended,
 	ITheme,
 	IThemeExtended,
+	IUserInterface,
 } from './types';
 import { selectSelf, selectSelfWithParams } from '../utils';
+
+export const uiSelector: IDataSliceSelectors['getUI'] = createSelector<
+	[typeof selectSelf<IDataSlice>],
+	IUserInterface
+>(selectSelf, (state) => state.ui);
 
 export const questionsSelector: IDataSliceSelectors['getQuestions'] =
 	createSelector<[typeof selectSelf<IDataSlice>], IQuestion[]>(

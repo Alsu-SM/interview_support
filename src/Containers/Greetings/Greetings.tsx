@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { cssGreetings } from './styles';
 
 import { useGreetings } from './hooks';
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 
-const GreetingsUnstyled: FC<ComponentPropsBase> = ({ className }) => {
+const GreetingsUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const { greetings } = useGreetings();
 
 	return <div className={className}>{greetings}</div>;

@@ -62,6 +62,15 @@ export const cssThemeCardRow = createCSSFunction(({ theme }) => ({
 	alignItems: 'center',
 }));
 
+export const cssThemeCardButtonsWrapper = createCSSFunction(({ theme }) => ({
+	position: 'absolute',
+	right: theme.spacing(2),
+	top: theme.spacing(2),
+	display: 'flex',
+	alignItems: 'center',
+	gap: theme.spacing(2),
+}));
+
 export const ThemeCardWrapper = styled('div')(cssThemeCardWrapper);
 export const ThemeCardLabel = styled('div')(cssThemeCardLabel);
 export const ThemeCardValue = styled('span')(cssThemeCardValue);
@@ -69,3 +78,6 @@ export const ThemeCardRow = styled('div')(cssThemeCardRow);
 export const ThemeCardDescription = styled('span')(cssThemeCardDescription);
 export const ThemeCardProgressRow = styled('div')(cssThemeCardProgressRow);
 export const ThemeCardProgress = styled('div')(cssThemeCardProgress);
+export const ThemeCardButtonsWrapper = styled('div')(
+	cssThemeCardButtonsWrapper,
+);

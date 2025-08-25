@@ -1,27 +1,43 @@
 import PageHome from '../Pages/PageHome';
 import PageQuestion from '../Pages/PageQuestion';
+import PageSettings from '../Pages/PageSettings';
+import PageStatistics from '../Pages/PageStatistics';
 import PageTheme from '../Pages/PageTheme';
 import { RouteItem, RoutePath } from './types';
 
 const routes: RouteItem[] = [
 	{
-		path: '/interview_support',
+		path: '/interview_support/',
 		index: true,
-		displayName: 'home',
+		displayName: 'Dashboard',
 		key: RoutePath.Home,
 		element: <PageHome />,
 	},
 	{
 		path: '/interview_support/theme/:id',
-		displayName: 'theme',
+		displayName: 'Theme',
 		key: RoutePath.Theme,
 		element: <PageTheme />,
+		hidden: true,
 	},
 	{
 		path: '/interview_support/question/:id',
-		displayName: 'theme',
+		displayName: 'Question',
 		key: RoutePath.Question,
 		element: <PageQuestion />,
+		hidden: true,
+	},
+	{
+		path: '/interview_support/statistics',
+		displayName: 'Statistics',
+		key: RoutePath.Statistics,
+		element: <PageStatistics />,
+	},
+	{
+		path: '/interview_support/settings',
+		displayName: 'Settings',
+		key: RoutePath.Settings,
+		element: <PageSettings />,
 	},
 ];
 

@@ -1,5 +1,5 @@
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 
-export interface IThemeQuestionsListProps extends ComponentPropsBase {
+export interface IThemeQuestionsListProps extends IComponentBaseProps {
 	themeId: string;
 }

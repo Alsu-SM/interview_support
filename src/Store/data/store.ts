@@ -24,6 +24,7 @@ import {
 	getThemeSelector,
 	questionsSelector,
 	themesSelector,
+	uiSelector,
 } from './selectors';
 import { restoreLocalStorage } from './utils';
 
@@ -47,6 +48,7 @@ const dataSlice = createSlice<
 		setIsCreateThemeActive: setIsCreateThemeActiveReducer,
 	},
 	selectors: {
+		getUI: uiSelector,
 		getQuestions: questionsSelector,
 		getThemes: themesSelector,
 		getQuestion: getQuestionSelector,
@@ -69,6 +71,7 @@ export const {
 } = dataSlice.actions;
 
 export const {
+	getUI,
 	getQuestions,
 	getThemes,
 	getQuestion,

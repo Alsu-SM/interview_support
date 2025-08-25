@@ -18,7 +18,7 @@ export type NavigationItem = {
 };
 
 type InitialRouteItem = {
-	path?: string;
+	path: string;
 	displayName: string;
 	key: string;
 	index?: boolean;
@@ -29,6 +29,7 @@ type InitialRouteItem = {
 	handle?: RouteObject['handle'];
 	children?: RouteItem[];
 	loader?: LoaderFunction;
+	hidden?: boolean;
 	action?: ActionFunction;
 	shouldRevalidate?: ShouldRevalidateFunction;
 	renderFn?: (
@@ -51,6 +52,8 @@ export enum RoutePath {
 	Home = 'home',
 	Theme = 'theme',
 	Question = 'question',
+	Statistics = 'statistics',
+	Settings = 'settings',
 }
 
 export default {};

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 import { cssPage } from '../styles';
 import { usePageQuestion } from './hooks';
 import { PageWarningMessage } from '../styled';
@@ -10,7 +10,7 @@ import {
 	QuestionTitleGroup,
 } from './styled';
 
-const PageQuestionUnstyled: FC<ComponentPropsBase> = ({ className }) => {
+const PageQuestionUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const { question } = usePageQuestion();
 	if (!question) {
 		return (

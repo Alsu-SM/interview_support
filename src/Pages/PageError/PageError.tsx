@@ -2,11 +2,11 @@ import { useRouteError } from 'react-router-dom';
 
 import { DefaultRouterError } from './types';
 import { FC } from 'react';
-import { ComponentPropsBase } from '../../types';
+import { IComponentBaseProps } from '../../types';
 import styled from '@emotion/styled';
 import { cssPage } from '../styles';
 
-const PageErrorUnstyled: FC<ComponentPropsBase> = ({ className }) => {
+const PageErrorUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const routerError: DefaultRouterError = useRouteError() as DefaultRouterError;
 
 	return (

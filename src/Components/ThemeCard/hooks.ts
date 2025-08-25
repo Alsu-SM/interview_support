@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import { selectDataSlice } from '../../Store/utils';
 import { IStoreType } from '../../Store/types';
+import { IButtonIconProps } from '../ButtonIcon';
 
 export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 	const getThemeSelector = createSelector([selectDataSlice], (dataSlice) =>
@@ -31,6 +32,14 @@ export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 		navigate(`/interview_support/theme/${theme.id}`);
 	};
 
+	const handleEdit: IButtonIconProps['onClick'] = (event) => {
+		event.stopPropagation();
+	};
+
+	const handleDelete: IButtonIconProps['onClick'] = (event) => {
+		event.stopPropagation();
+	};
+
 	return {
 		progress,
 		studiedQuestionsCount,
@@ -38,5 +47,7 @@ export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 		shownTags,
 		tagsMore,
 		handleClick,
+		handleEdit,
+		handleDelete,
 	};
 };
