@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 import { useCreateThemeModal } from './hooks';
 import { IComponentBaseProps } from '../../types';
 import Modal from '../../Components/Modal/Modal';
-import { Input } from '../../Components/Input';
-import { CreateThemeModalTextarea } from './styled';
+import { CreateThemeModalContent } from './styled';
+import { Field } from '../../Components/Field';
 
 const CreateThemeModalUnstyled: FC<IComponentBaseProps> = ({ className }) => {
-	const { open, buttons, handleClose } = useCreateThemeModal();
+	const { open, buttons, inputProps, textareaProps, handleClose } =
+		useCreateThemeModal();
 
 	return (
 		<Modal
@@ -18,8 +19,14 @@ const CreateThemeModalUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 			className={className}
 			buttons={buttons}
 		>
-			<Input placeholder="e.g. React Fundamentals..." />
-			<CreateThemeModalTextarea placeholder="Brief description of this theme..." />
+			<CreateThemeModalContent>
+				<Field label={'Theme Name'} type="input" required props={inputProps} />
+				<Field
+					label={'Theme Description'}
+					type="textarea"
+					props={textareaProps}
+				/>
+			</CreateThemeModalContent>
 		</Modal>
 	);
 };

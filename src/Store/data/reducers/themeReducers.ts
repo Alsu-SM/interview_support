@@ -73,3 +73,27 @@ export const setIsCreateThemeActiveReducer: IDataSliceReducers[IDataSliceActions
 			ui: { ...state.ui, isCreateThemeActive: payload.isActive },
 		};
 	};
+
+export const setThemeToDeleteReducer: IDataSliceReducers[IDataSliceActions.SetThemeToDelete] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+
+		return {
+			...state,
+			ui: { ...state.ui, themeToDelete: payload.id },
+		};
+	};
+
+export const setThemeToEditReducer: IDataSliceReducers[IDataSliceActions.SetThemeToEdit] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+
+		return {
+			...state,
+			ui: { ...state.ui, themeToEdit: payload.id },
+		};
+	};

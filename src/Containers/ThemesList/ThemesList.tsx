@@ -11,8 +11,8 @@ import {
 } from './styled';
 import OrderedList from '../../Components/OrderedList';
 import { IconPlus } from '../../Components/Icons';
-import { Button } from '../../Components/Button';
 import { CreateThemeModal } from '../CreateThemeModal';
+import { DeleteModal } from '../DeleteModal';
 
 const ThemesListUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const { themesList, handleReorder, handleCreateTheme } = useThemesList();
@@ -31,13 +31,11 @@ const ThemesListUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 					</PageWarningMessage>
 				)}
 			</ThemesListOrderedListWrapper>
-			<Button>Label</Button>
-			<Button danger>Label</Button>
-			<Button primary>Label</Button>
 			<CreateThemeButton onClick={handleCreateTheme}>
 				<IconPlus />
 			</CreateThemeButton>
 			<CreateThemeModal />
+			<DeleteModal />
 		</div>
 	);
 };

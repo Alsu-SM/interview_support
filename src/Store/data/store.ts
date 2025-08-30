@@ -10,6 +10,10 @@ import {
 	reorderQuestionsReducer,
 	reorderThemesReducer,
 	setIsCreateThemeActiveReducer,
+	setQuestionToDeleteReducer,
+	setQuestionToEditReducer,
+	setThemeToDeleteReducer,
+	setThemeToEditReducer,
 } from './reducers';
 import {
 	IDataSlice,
@@ -39,9 +43,13 @@ const dataSlice = createSlice<
 	reducers: {
 		createQuestion: createQuestionReducer,
 		editQuestion: editQuestionReducer,
+		setQuestionToDelete: setQuestionToDeleteReducer,
+		setQuestionToEdit: setQuestionToEditReducer,
 		deleteQuestion: deleteQuestionReducer,
 		createTheme: createThemeReducer,
 		editTheme: editThemeReducer,
+		setThemeToDelete: setThemeToDeleteReducer,
+		setThemeToEdit: setThemeToEditReducer,
 		deleteTheme: deleteThemeReducer,
 		reorderThemes: reorderThemesReducer,
 		reorderQuestions: reorderQuestionsReducer,
@@ -68,6 +76,10 @@ export const {
 	reorderThemes,
 	reorderQuestions,
 	setIsCreateThemeActive,
+	setQuestionToDelete,
+	setQuestionToEdit,
+	setThemeToDelete,
+	setThemeToEdit,
 } = dataSlice.actions;
 
 export const {

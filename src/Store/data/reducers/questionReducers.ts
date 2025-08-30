@@ -74,3 +74,27 @@ export const reorderQuestionsReducer: IDataSliceReducers[IDataSliceActions.Reord
 			}),
 		};
 	};
+
+export const setQuestionToDeleteReducer: IDataSliceReducers[IDataSliceActions.SetQuestionToDelete] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+
+		return {
+			...state,
+			ui: { ...state.ui, questionToDelete: payload.id },
+		};
+	};
+
+export const setQuestionToEditReducer: IDataSliceReducers[IDataSliceActions.SetQuestionToEdit] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+
+		return {
+			...state,
+			ui: { ...state.ui, questionToEdit: payload.id },
+		};
+	};

@@ -1,13 +1,20 @@
 import { ComponentProps } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getThemeExtended, ITheme, IThemeExtended } from '../../Store';
-import { useSelector } from 'react-redux';
+import {
+	getThemeExtended,
+	ITheme,
+	IThemeExtended,
+	setThemeToDelete,
+	setThemeToEdit,
+} from '../../Store';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import { selectDataSlice } from '../../Store/utils';
 import { IStoreType } from '../../Store/types';
 import { IButtonIconProps } from '../ButtonIcon';
 
 export const useThemeCard = ({ theme }: { theme: ITheme }) => {
+	const dispatch = useDispatch();
 	const getThemeSelector = createSelector([selectDataSlice], (dataSlice) =>
 		getThemeExtended({ dataSlice }, { id: theme.id }),
 	);
@@ -20,10 +27,11 @@ export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 	const tagsList = themeData?.tags ?? [];
 
 	const allTags = tagsList.map((tag) => `#${tag}`).join(' ');
-	const shownTags = tagsList
-		.slice(0, 3)
-		.map((tag) => `#${tag}`)
-		.join(' ');
+	const shownTags =
+		tagsList
+			.slice(0, 3)
+			.map((tag) => `#${tag}`)
+			.join(' ') || '-';
 	const tagsMore =
 		tagsList.length > 3 ? ` and ${tagsList.length - 3} more` : '';
 	const navigate = useNavigate();
@@ -34,10 +42,12 @@ export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 
 	const handleEdit: IButtonIconProps['onClick'] = (event) => {
 		event.stopPropagation();
+		dispatch(setThemeToEdit({ id: theme.id }));
 	};
 
 	const handleDelete: IButtonIconProps['onClick'] = (event) => {
 		event.stopPropagation();
+		dispatch(setThemeToDelete({ id: theme.id }));
 	};
 
 	return {

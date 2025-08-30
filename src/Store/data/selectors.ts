@@ -93,7 +93,10 @@ export const getThemeExtendedSelector: IDataSliceSelectors['getThemeExtended'] =
 
 		const isLearnt = studiedQuestionsCount === questions.length;
 
-		const progress = (studiedQuestionsCount / questions.length) * 100;
+		const progress =
+			questions.length === 0
+				? 0
+				: (studiedQuestionsCount / questions.length) * 100;
 
 		return {
 			...theme,

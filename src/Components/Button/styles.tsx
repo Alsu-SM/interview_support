@@ -2,7 +2,7 @@ import { createCSSFunction } from '../../Utils/createCSSFunction';
 import { IButtonProps } from './types';
 
 export const cssButtonIcon = createCSSFunction<IButtonProps>(
-	({ theme, danger, primary }) => [
+	({ theme, danger, primary, disabled }) => [
 		{
 			width: 'fit-content',
 			borderRadius: theme.spacing(2),
@@ -21,13 +21,17 @@ export const cssButtonIcon = createCSSFunction<IButtonProps>(
 			[`&:hover, &:active`]: {
 				background: theme.bg.inverse.secondary,
 			},
+			'&:focus-visible': {
+				outline: `${theme.spacing(1)} solid ${theme.bg.accentDark}`,
+				outlineOffset: theme.spacing(1),
+			},
 		},
 		danger && {
 			borderColor: theme.text.danger,
 			color: theme.text.danger,
 			opacity: 0.9,
 			[`&:hover, &:active`]: {
-				background: 'transparent',
+				background: theme.bg.danger,
 				opacity: 1,
 			},
 		},
@@ -40,6 +44,10 @@ export const cssButtonIcon = createCSSFunction<IButtonProps>(
 				background: theme.bg.accentDark,
 				opacity: 1,
 			},
+		},
+		disabled && {
+			opacity: 0.4,
+			pointerEvents: 'none',
 		},
 	],
 );

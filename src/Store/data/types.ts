@@ -33,9 +33,11 @@ export interface IUserInterface {
 	searchTags: string[];
 	isFocusMode: boolean;
 	isCreateThemeActive: boolean;
-	isEditThemeActive: boolean;
 	isCreateQuestionActive: boolean;
-	isEditQuestionActive: boolean;
+	themeToDelete: ITheme['id'] | null;
+	questionToDelete: IQuestion['id'] | null;
+	themeToEdit: ITheme['id'] | null;
+	questionToEdit: IQuestion['id'] | null;
 }
 
 export interface IDataSlice {
@@ -50,8 +52,8 @@ export interface ICreateQuestion {
 	question: Omit<IQuestion, 'id'>;
 }
 
-export interface IDeleteQuestion {
-	id: IQuestion['id'];
+export interface ISetQuestion {
+	id: IQuestion['id'] | null;
 }
 
 export interface IEditQuestion {
@@ -63,8 +65,8 @@ export interface ICreateTheme {
 	theme: Omit<ITheme, 'id'>;
 }
 
-export interface IDeleteTheme {
-	id: ITheme['id'];
+export interface ISetTheme {
+	id: ITheme['id'] | null;
 }
 
 export interface IEditTheme {
@@ -96,8 +98,10 @@ export enum IDataSliceActions {
 	ReorderQuestions = 'reorderQuestions',
 	SetIsCreateThemeActive = 'setIsCreateThemeActive',
 	SetIsCreateQuestionActive = 'setIsCreateQuestionActive',
-	SetIsDeleteThemeActive = 'setIsDeleteThemeActive',
-	SetIsDeleteQuestionActive = 'setIsDeleteQuestionActive',
+	SetThemeToDelete = 'setThemeToDelete',
+	SetQuestionToDelete = 'setQuestionToDelete',
+	SetThemeToEdit = 'setThemeToEdit',
+	SetQuestionToEdit = 'setQuestionToEdit',
 }
 
 export type IDataSliceReducers = {
@@ -108,10 +112,24 @@ export type IDataSliceReducers = {
 			type: string;
 		}
 	>;
+	[IDataSliceActions.SetQuestionToDelete]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetQuestion;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.SetQuestionToEdit]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetQuestion;
+			type: string;
+		}
+	>;
 	[IDataSliceActions.DeleteQuestion]: CaseReducer<
 		IDataSlice,
 		{
-			payload: IDeleteQuestion;
+			payload: ISetQuestion;
 			type: string;
 		}
 	>;
@@ -129,10 +147,24 @@ export type IDataSliceReducers = {
 			type: string;
 		}
 	>;
+	[IDataSliceActions.SetThemeToDelete]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetTheme;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.SetThemeToEdit]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetTheme;
+			type: string;
+		}
+	>;
 	[IDataSliceActions.DeleteTheme]: CaseReducer<
 		IDataSlice,
 		{
-			payload: IDeleteTheme;
+			payload: ISetTheme;
 			type: string;
 		}
 	>;
