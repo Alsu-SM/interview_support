@@ -21,6 +21,12 @@ export const deleteQuestionReducer: IDataSliceReducers[IDataSliceActions.DeleteQ
 
 		return {
 			...state,
+			themes: state.themes.map((theme) => ({
+				...theme,
+				questions: theme.questions.filter(
+					(question) => question.id !== payload.id,
+				),
+			})),
 			questions: state.questions.filter(
 				(question) => question.id !== payload.id,
 			),
@@ -35,6 +41,16 @@ export const editQuestionReducer: IDataSliceReducers[IDataSliceActions.EditQuest
 
 		return {
 			...state,
+			themes: state.themes.map((theme) => ({
+				...theme,
+				questions: theme.questions.map((question) => {
+					if (question.id === payload.id) {
+						return { ...question, ...payload.question };
+					}
+
+					return question;
+				}),
+			})),
 			questions: state.questions.map((question) => {
 				if (question.id === payload.id) {
 					return { ...question, ...payload.question };
@@ -72,6 +88,18 @@ export const reorderQuestionsReducer: IDataSliceReducers[IDataSliceActions.Reord
 
 				return theme;
 			}),
+		};
+	};
+
+export const setThemeToCreateQuestionReducer: IDataSliceReducers[IDataSliceActions.SetThemeToCreateQuestion] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+
+		return {
+			...state,
+			ui: { ...state.ui, themeToCreateQuestion: payload.id },
 		};
 	};
 

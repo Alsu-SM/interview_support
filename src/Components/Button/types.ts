@@ -7,4 +7,5 @@ export interface IButtonProps
 	disabled?: boolean;
 	danger?: boolean;
 	primary?: boolean;
+	plain?: boolean;
 }

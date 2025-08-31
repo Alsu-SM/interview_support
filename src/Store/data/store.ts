@@ -12,6 +12,7 @@ import {
 	setIsCreateThemeActiveReducer,
 	setQuestionToDeleteReducer,
 	setQuestionToEditReducer,
+	setThemeToCreateQuestionReducer,
 	setThemeToDeleteReducer,
 	setThemeToEditReducer,
 } from './reducers';
@@ -45,6 +46,7 @@ const dataSlice = createSlice<
 		editQuestion: editQuestionReducer,
 		setQuestionToDelete: setQuestionToDeleteReducer,
 		setQuestionToEdit: setQuestionToEditReducer,
+		setThemeToCreateQuestion: setThemeToCreateQuestionReducer,
 		deleteQuestion: deleteQuestionReducer,
 		createTheme: createThemeReducer,
 		editTheme: editThemeReducer,
@@ -70,6 +72,7 @@ export const {
 	createQuestion,
 	editQuestion,
 	deleteQuestion,
+	setThemeToCreateQuestion,
 	createTheme,
 	editTheme,
 	deleteTheme,

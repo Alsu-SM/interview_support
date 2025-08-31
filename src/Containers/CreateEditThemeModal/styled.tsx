@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Textarea } from '../../Components/Textarea';
 import { TextareaElement } from '../../Components/Textarea/styled';
 
-export const CreateThemeModalContent = styled('div')(({ theme }) => ({
+export const CreateEditThemeModalContent = styled('div')(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	width: '100%',

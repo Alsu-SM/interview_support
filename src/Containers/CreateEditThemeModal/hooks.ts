@@ -1,25 +1,48 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	createTheme,
+	editTheme,
+	getTheme,
 	getUI,
 	ICreateTheme,
+	ITheme,
 	setIsCreateThemeActive,
+	setThemeToEdit,
 } from '../../Store';
 import { IModalProps } from '../../Components/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CREATE_THEME_DEFAULT } from './constants';
 import { IInputProps } from '../../Components/Input';
 import { ITextareaProps } from '../../Components/Textarea';
+import { createSelector } from '@reduxjs/toolkit';
+import { selectDataSlice } from '../../Store/utils';
+import { IStoreType } from '../../Store/types';
 
-export const useCreateThemeModal = () => {
+export const useCreateEditThemeModal = () => {
 	const [theme, setTheme] =
 		useState<ICreateTheme['theme']>(CREATE_THEME_DEFAULT);
 
 	const dispatch = useDispatch();
-	const { isCreateThemeActive: open } = useSelector(getUI);
+	const { isCreateThemeActive, themeToEdit } = useSelector(getUI);
+	const getThemeSelector = createSelector([selectDataSlice], (dataSlice) =>
+		getTheme({ dataSlice }, { id: themeToEdit ?? '' }),
+	);
+
+	const isEdit = !!themeToEdit;
+	const isOpen = isCreateThemeActive || isEdit;
+
+	const title = isEdit ? 'Edit Theme' : 'Create Theme';
+
+	const themeData = useSelector<IStoreType, ITheme | undefined>(
+		getThemeSelector,
+	);
 
 	const handleClose = () => {
-		dispatch(setIsCreateThemeActive({ isActive: false }));
+		dispatch(
+			isEdit
+				? setThemeToEdit({ id: null })
+				: setIsCreateThemeActive({ isActive: false }),
+		);
 	};
 
 	const handleNameChange: IInputProps['onChange'] = (event) => {
@@ -36,6 +59,14 @@ export const useCreateThemeModal = () => {
 		setTheme(CREATE_THEME_DEFAULT);
 	};
 
+	const handleEdit = () => {
+		if (themeToEdit) {
+			dispatch(editTheme({ theme, id: themeToEdit }));
+			dispatch(setThemeToEdit({ id: null }));
+			setTheme(CREATE_THEME_DEFAULT);
+		}
+	};
+
 	const buttons: IModalProps['buttons'] = [
 		{
 			children: 'Cancel',
@@ -43,9 +74,9 @@ export const useCreateThemeModal = () => {
 			onClick: handleClose,
 		},
 		{
-			children: 'Create Theme',
+			children: isEdit ? 'Update Theme' : 'Create Theme',
 			key: 'create',
-			onClick: handleCreate,
+			onClick: isEdit ? handleEdit : handleCreate,
 			primary: true,
 			disabled: !theme.name,
 		},
@@ -65,11 +96,22 @@ export const useCreateThemeModal = () => {
 		onChange: handleDescriptionChange,
 	};
 
+	useEffect(() => {
+		if (isEdit && themeData) {
+			setTheme({
+				name: themeData.name,
+				description: themeData.description,
+				questions: themeData.questions,
+			});
+		}
+	}, [isEdit, themeData]);
+
 	return {
-		open,
+		open: isOpen,
 		buttons,
 		inputProps,
 		textareaProps,
+		title,
 		handleClose,
 	};
 };

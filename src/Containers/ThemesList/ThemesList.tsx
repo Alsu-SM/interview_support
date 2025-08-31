@@ -3,16 +3,10 @@ import styled from '@emotion/styled';
 import { IComponentBaseProps } from '../../types';
 import { useThemesList } from './hooks';
 import { cssThemesList } from './styles';
-import { PageWarningMessage } from '../../Pages/styled';
-import {
-	CreateThemeButton,
-	CreateThemeButtonInline,
-	ThemesListOrderedListWrapper,
-} from './styled';
+import { CreateButtonInline, PageWarningMessage } from '../../Pages/styled';
+import { CreateThemeButton, ThemesListOrderedListWrapper } from './styled';
 import OrderedList from '../../Components/OrderedList';
 import { IconPlus } from '../../Components/Icons';
-import { CreateThemeModal } from '../CreateThemeModal';
-import { DeleteModal } from '../DeleteModal';
 
 const ThemesListUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const { themesList, handleReorder, handleCreateTheme } = useThemesList();
@@ -25,17 +19,15 @@ const ThemesListUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 				) : (
 					<PageWarningMessage>
 						No themes yet,{' '}
-						<CreateThemeButtonInline onClick={handleCreateTheme}>
+						<CreateButtonInline onClick={handleCreateTheme}>
 							wanna create one?
-						</CreateThemeButtonInline>
+						</CreateButtonInline>
 					</PageWarningMessage>
 				)}
 			</ThemesListOrderedListWrapper>
 			<CreateThemeButton onClick={handleCreateTheme}>
 				<IconPlus />
 			</CreateThemeButton>
-			<CreateThemeModal />
-			<DeleteModal />
 		</div>
 	);
 };

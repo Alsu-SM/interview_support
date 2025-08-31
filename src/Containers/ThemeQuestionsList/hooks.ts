@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getTheme, ITheme, reorderQuestions } from '../../Store';
+import {
+	getTheme,
+	ITheme,
+	reorderQuestions,
+	setThemeToCreateQuestion,
+} from '../../Store';
 import { renderQuestion } from './renders';
 import { IOrderedListProps } from '../../Components/OrderedList/types';
 import { createSelector } from '@reduxjs/toolkit';
@@ -20,6 +25,9 @@ export const useThemeQuestionsList = ({ themeId }: { themeId: string }) => {
 
 	const questionsList = themeData?.questions.map(renderQuestion) ?? [];
 
+	const handleCreateQuestion = () => {
+		dispatch(setThemeToCreateQuestion({ id: themeId }));
+	};
 	const handleReorder: IOrderedListProps['onReorder'] = (items) => {
 		if (isThemeNotFound) {
 			return;
@@ -33,5 +41,10 @@ export const useThemeQuestionsList = ({ themeId }: { themeId: string }) => {
 		);
 	};
 
-	return { isThemeNotFound, questionsList, handleReorder };
+	return {
+		isThemeNotFound,
+		questionsList,
+		handleReorder,
+		handleCreateQuestion,
+	};
 };

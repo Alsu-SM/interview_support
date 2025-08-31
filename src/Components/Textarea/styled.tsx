@@ -33,6 +33,11 @@ export const TextareaElement = styled('textarea')(({ theme }) => ({
 		opacity: 1,
 	},
 	[`&::-webkit-scrollbar, &::-webkit-resizer`]: {
+		visibility: 'hidden',
+		background: 'transparent',
+		opacity: 0,
+	},
+	[`&::-webkit-scrollbar-corner`]: {
 		display: 'none',
 	},
 }));

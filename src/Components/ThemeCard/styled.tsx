@@ -1,20 +1,6 @@
 import styled from '@emotion/styled';
 import { createCSSFunction } from '../../Utils/createCSSFunction';
 
-export const cssThemeCardWrapper = createCSSFunction(({ theme }) => ({
-	display: 'flex',
-	flexDirection: 'column',
-	gap: theme.spacing(5),
-	borderRadius: theme.spacing(5),
-	background: theme.bg.secondary,
-	boxShadow: theme.boxShadow.primary,
-	backdropFilter: theme.filter.blur.primary,
-	padding: theme.spacing(6),
-	flex: 1,
-	boxSizing: 'border-box',
-	width: '100%',
-}));
-
 export const cssThemeCardLabel = createCSSFunction(({ theme }) => ({
 	color: theme.text.secondary,
 	fontWeight: 200,
@@ -69,9 +55,11 @@ export const cssThemeCardButtonsWrapper = createCSSFunction(({ theme }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	gap: theme.spacing(2),
+	opacity: 0,
+	transitionDuration: theme.transition.duration.standard,
+	transitionTimingFunction: theme.transition.timing.easeInOut,
 }));
 
-export const ThemeCardWrapper = styled('div')(cssThemeCardWrapper);
 export const ThemeCardLabel = styled('div')(cssThemeCardLabel);
 export const ThemeCardValue = styled('span')(cssThemeCardValue);
 export const ThemeCardRow = styled('div')(cssThemeCardRow);

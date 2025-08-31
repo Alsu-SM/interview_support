@@ -4,14 +4,18 @@ import { useThemeQuestionsList } from './hooks';
 import { cssQuestionsList } from './styles';
 import OrderedList from '../../Components/OrderedList';
 import { IThemeQuestionsListProps } from './types';
-import { PageWarningMessage } from '../../Pages/styled';
+import { CreateButtonInline, PageWarningMessage } from '../../Pages/styled';
 
 const ThemeQuestionsListUnstyled: FC<IThemeQuestionsListProps> = ({
 	themeId,
 	className,
 }) => {
-	const { isThemeNotFound, questionsList, handleReorder } =
-		useThemeQuestionsList({ themeId });
+	const {
+		isThemeNotFound,
+		questionsList,
+		handleReorder,
+		handleCreateQuestion,
+	} = useThemeQuestionsList({ themeId });
 
 	if (isThemeNotFound) {
 		return (
@@ -21,7 +25,16 @@ const ThemeQuestionsListUnstyled: FC<IThemeQuestionsListProps> = ({
 
 	return (
 		<div className={className}>
-			<OrderedList items={questionsList} onReorder={handleReorder} />
+			{questionsList.length ? (
+				<OrderedList items={questionsList} onReorder={handleReorder} />
+			) : (
+				<PageWarningMessage>
+					No questions yet,{' '}
+					<CreateButtonInline onClick={handleCreateQuestion}>
+						wanna create one?
+					</CreateButtonInline>
+				</PageWarningMessage>
+			)}
 		</div>
 	);
 };

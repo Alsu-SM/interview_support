@@ -33,7 +33,7 @@ export interface IUserInterface {
 	searchTags: string[];
 	isFocusMode: boolean;
 	isCreateThemeActive: boolean;
-	isCreateQuestionActive: boolean;
+	themeToCreateQuestion: ITheme['id'] | null;
 	themeToDelete: ITheme['id'] | null;
 	questionToDelete: IQuestion['id'] | null;
 	themeToEdit: ITheme['id'] | null;
@@ -97,7 +97,7 @@ export enum IDataSliceActions {
 	ReorderTheme = 'reorderThemes',
 	ReorderQuestions = 'reorderQuestions',
 	SetIsCreateThemeActive = 'setIsCreateThemeActive',
-	SetIsCreateQuestionActive = 'setIsCreateQuestionActive',
+	SetThemeToCreateQuestion = 'setThemeToCreateQuestion',
 	SetThemeToDelete = 'setThemeToDelete',
 	SetQuestionToDelete = 'setQuestionToDelete',
 	SetThemeToEdit = 'setThemeToEdit',
@@ -105,6 +105,13 @@ export enum IDataSliceActions {
 }
 
 export type IDataSliceReducers = {
+	[IDataSliceActions.SetThemeToCreateQuestion]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetQuestion;
+			type: string;
+		}
+	>;
 	[IDataSliceActions.CreateQuestion]: CaseReducer<
 		IDataSlice,
 		{

@@ -1,20 +1,29 @@
 import { ComponentProps } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IQuestion } from '../../Store';
+import { IQuestion, setQuestionToDelete, setQuestionToEdit } from '../../Store';
 import { renderTag } from './renders';
+import { useDispatch } from 'react-redux';
+import { IButtonIconProps } from '../ButtonIcon';
 
 export const useQuestionCard = ({ question }: { question: IQuestion }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleClick: ComponentProps<'button'>['onClick'] = () => {
 		navigate(`/interview_support/question/${question.id}`);
 	};
 
-	const tags = question.tags.slice(0, 3).map(renderTag);
-	const tagsMessage =
-		tags.length === question.tags.length
-			? ''
-			: `and ${question.tags.length - tags.length} more`;
+	const handleEdit: IButtonIconProps['onClick'] = (event) => {
+		event.stopPropagation();
+		dispatch(setQuestionToEdit({ id: question.id }));
+	};
 
-	return { tags, tagsMessage, handleClick };
+	const handleDelete: IButtonIconProps['onClick'] = (event) => {
+		event.stopPropagation();
+		dispatch(setQuestionToDelete({ id: question.id }));
+	};
+
+	const tags = question.tags.map(renderTag);
+
+	return { tags, handleClick, handleEdit, handleDelete };
 };

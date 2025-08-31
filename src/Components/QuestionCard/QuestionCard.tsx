@@ -1,30 +1,34 @@
 import { FC } from 'react';
 import { IQuestionCardProps } from './types';
 import styled from '@emotion/styled';
-import { cssQuestionCard } from './styles';
 import {
+	QuestionCardButtonsWrapper,
 	QuestionCardLabel,
-	QuestionCardMessage,
 	QuestionCardRow,
 	QuestionCardValue,
+	QuestionTagsList,
 } from './styled';
 import { useQuestionCard } from './hooks';
+import { Card } from '../Card';
+import { cssQuestionCard } from './styles';
+import ButtonIcon from '../ButtonIcon/ButtonIcon';
+import { IconDelete, IconEdit } from '../Icons';
 
 const QuestionCardUnstyled: FC<IQuestionCardProps> = ({
 	id,
 	question,
 	className,
 }) => {
-	const { tags, tagsMessage, handleClick } = useQuestionCard({ question });
+	const { tags, handleClick, handleEdit, handleDelete } = useQuestionCard({
+		question,
+	});
 
 	return (
-		<button
-			type="button"
-			className={className}
-			onClick={handleClick}
-			id={id}
-			key={id}
-		>
+		<Card className={className} onClick={handleClick} id={id} key={id}>
+			<QuestionCardButtonsWrapper>
+				<ButtonIcon icon={<IconEdit />} onClick={handleEdit} />
+				<ButtonIcon icon={<IconDelete />} danger onClick={handleDelete} />
+			</QuestionCardButtonsWrapper>
 			<QuestionCardRow>
 				<QuestionCardLabel>Question:</QuestionCardLabel>
 				<QuestionCardValue title={question.question}>
@@ -34,11 +38,10 @@ const QuestionCardUnstyled: FC<IQuestionCardProps> = ({
 			<QuestionCardRow>
 				<QuestionCardLabel>Tags:</QuestionCardLabel>
 				<QuestionCardValue>
-					{tags} {tagsMessage}
+					<QuestionTagsList>{tags}</QuestionTagsList>
 				</QuestionCardValue>
 			</QuestionCardRow>
-			<QuestionCardMessage>{'Go to question ->'}</QuestionCardMessage>
-		</button>
+		</Card>
 	);
 };
 QuestionCardUnstyled.displayName = 'QuestionCardUnstyled';
