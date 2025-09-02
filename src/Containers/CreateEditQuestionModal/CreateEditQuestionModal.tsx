@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
-
 import { useCreateEditQuestionModal } from './hooks';
 import { IComponentBaseProps } from '../../types';
 import Modal from '../../Components/Modal/Modal';
-import { CreateEditQuestionModalContent } from './styled';
-import { Field } from '../../Components/Field';
+import {
+	CreateEditQuestionFieldAnswer,
+	CreateEditQuestionFieldQuestion,
+	CreateEditQuestionModalContent,
+} from './styled';
 import { cssCreateEditQuestionModal } from './styles';
 
 const CreateEditQuestionModalUnstyled: FC<IComponentBaseProps> = ({
@@ -29,13 +31,18 @@ const CreateEditQuestionModalUnstyled: FC<IComponentBaseProps> = ({
 			buttons={buttons}
 		>
 			<CreateEditQuestionModalContent>
-				<Field
+				<CreateEditQuestionFieldQuestion
 					label={'Question'}
 					type="textarea"
 					required
 					props={questionFieldProps}
 				/>
-				<Field label={'Answer'} type="textarea" props={answerFieldProps} />
+				<CreateEditQuestionFieldAnswer
+					label={'Answer'}
+					type="markdown"
+					required
+					props={answerFieldProps}
+				/>
 			</CreateEditQuestionModalContent>
 		</Modal>
 	);

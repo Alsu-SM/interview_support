@@ -38,7 +38,7 @@ const QuestionCardUnstyled: FC<IQuestionCardProps> = ({
 			<QuestionCardRow>
 				<QuestionCardLabel>Tags:</QuestionCardLabel>
 				<QuestionCardValue>
-					<QuestionTagsList>{tags}</QuestionTagsList>
+					{tags.length ? <QuestionTagsList>{tags}</QuestionTagsList> : '-'}
 				</QuestionCardValue>
 			</QuestionCardRow>
 		</Card>

@@ -1,6 +1,10 @@
+import { Theme } from '@emotion/react';
 import { createCSSFunction } from './createCSSFunction';
 
-export const cssScrollbar = createCSSFunction(({ theme }) => ({
+export const cssScrollbar = createCSSFunction<{
+	inverse?: boolean;
+	theme: Theme;
+}>(({ theme, inverse }) => ({
 	'&::-webkit-scrollbar': {
 		width: theme.spacing(12),
 		height: theme.spacing(12),
@@ -10,7 +14,7 @@ export const cssScrollbar = createCSSFunction(({ theme }) => ({
 	'&::-webkit-scrollbar-track': {
 		width: theme.spacing(4),
 		height: theme.spacing(4),
-		background: theme.bg.secondary,
+		background: inverse ? theme.bg.inverse.secondary : theme.bg.secondary,
 		borderRadius: theme.spacing(12),
 		border: `${theme.spacing(4)} solid transparent`,
 		backgroundClip: 'padding-box',
@@ -18,7 +22,7 @@ export const cssScrollbar = createCSSFunction(({ theme }) => ({
 	'&::-webkit-scrollbar-thumb': {
 		width: theme.spacing(4),
 		height: theme.spacing(4),
-		background: theme.bg.secondary,
+		background: inverse ? theme.bg.inverse.secondary : theme.bg.secondary,
 		borderRadius: theme.spacing(12),
 		border: `${theme.spacing(4)} solid transparent`,
 		backgroundClip: 'padding-box',

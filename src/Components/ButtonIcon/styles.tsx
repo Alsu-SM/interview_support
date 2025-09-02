@@ -2,7 +2,7 @@ import { createCSSFunction } from '../../Utils/createCSSFunction';
 import { IButtonIconProps } from './types';
 
 export const cssButtonIcon = createCSSFunction<IButtonIconProps>(
-	({ theme, disabled, danger }) => ({
+	({ theme, danger }) => ({
 		width: theme.spacing(16),
 		height: theme.spacing(16),
 		borderRadius: theme.spacing(2),

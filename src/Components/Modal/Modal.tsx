@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Button } from '../Button';
 import {
 	ModalButtons,
@@ -8,6 +9,7 @@ import {
 import { cssModal } from './styles';
 import { IModalProps } from './types';
 import styled from '@emotion/styled';
+import { useOutsideClick } from '../../Utils';
 
 const ModalUnstyled = ({
 	title,
@@ -17,6 +19,10 @@ const ModalUnstyled = ({
 	onClose,
 	...restProps
 }: IModalProps) => {
+	const ref = useRef<HTMLDivElement>(null);
+
+	useOutsideClick({ ref, callback: () => onClose?.() });
+
 	if (!open) {
 		return null;
 	}
@@ -24,7 +30,7 @@ const ModalUnstyled = ({
 	return (
 		<>
 			<ModalOverlay />
-			<div {...restProps}>
+			<div {...restProps} ref={ref} autoFocus>
 				{title && <ModalTitle>{title}</ModalTitle>}
 				{children && <ModalChildren>{children}</ModalChildren>}
 				{buttons && buttons.length > 0 && (

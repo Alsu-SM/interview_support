@@ -12,10 +12,11 @@ import {
 import { IModalProps } from '../../Components/Modal';
 import { useEffect, useState } from 'react';
 import { CREATE_QUESTION_DEFAULT } from './constants';
-import { ITextareaProps } from '../../Components/Textarea';
 import { createSelector } from '@reduxjs/toolkit';
 import { selectDataSlice } from '../../Store/utils';
 import { IStoreType } from '../../Store/types';
+import { IMarkDownProps } from '../../Components/Field';
+import { ITextareaProps } from '../../Components/Textarea';
 
 export const useCreateEditQuestionModal = () => {
 	const [question, setQuestion] = useState<ICreateQuestion['question']>(
@@ -48,8 +49,8 @@ export const useCreateEditQuestionModal = () => {
 		setQuestion({ ...question, question: event.target.value });
 	};
 
-	const handleAnswerChange: ITextareaProps['onChange'] = (event) => {
-		setQuestion({ ...question, answer: event.target.value });
+	const handleAnswerChange: IMarkDownProps['onChange'] = (value = '') => {
+		setQuestion({ ...question, answer: value });
 	};
 
 	const handleCreate = () => {
@@ -82,16 +83,17 @@ export const useCreateEditQuestionModal = () => {
 	];
 
 	const questionFieldProps: ITextareaProps = {
-		name: 'question',
 		placeholder: 'Enter your question...',
 		value: question.question,
 		onChange: handleQuestionChange,
 	};
 
-	const answerFieldProps: ITextareaProps = {
-		name: 'answer',
-		placeholder: 'Enter the answer...',
+	const answerFieldProps: IMarkDownProps = {
+		textareaProps: {
+			placeholder: 'Enter the answer...',
+		},
 		value: question.answer,
+		visibleDragbar: false,
 		onChange: handleAnswerChange,
 	};
 

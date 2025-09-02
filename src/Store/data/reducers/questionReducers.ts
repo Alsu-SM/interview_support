@@ -7,9 +7,15 @@ export const createQuestionReducer: IDataSliceReducers[IDataSliceActions.CreateQ
 			return state;
 		}
 
+		const newQuestion = { ...payload.question, id: getUUIDv7() };
+
 		return {
 			...state,
-			questions: [...state.questions, { ...payload.question, id: getUUIDv7() }],
+			themes: state.themes.map((theme) => ({
+				...theme,
+				questions: [newQuestion, ...theme.questions],
+			})),
+			questions: [newQuestion, ...state.questions],
 		};
 	};
 

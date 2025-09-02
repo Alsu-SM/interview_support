@@ -1,6 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getThemeExtended, IThemeExtended } from '../../Store';
+import {
+	getThemeExtended,
+	IThemeExtended,
+	setThemeToCreateQuestion,
+} from '../../Store';
 import { IStoreType } from '../../Store/types';
 import { createSelector } from '@reduxjs/toolkit';
 import { selectDataSlice } from '../../Store/utils';
@@ -8,6 +12,8 @@ import { renderTag } from './renders';
 
 export const usePageTheme = () => {
 	const { id } = useParams();
+	const dispatch = useDispatch();
+
 	const navigate = useNavigate();
 
 	const getThemeExtendedSelector = createSelector(
@@ -26,5 +32,16 @@ export const usePageTheme = () => {
 		navigate(`/interview_support/`);
 	};
 
-	return { themeData, progress, tags, handleGoBack };
+	const handleCreateQuestion = () => {
+		if (id && themeData) {
+			dispatch(setThemeToCreateQuestion({ id }));
+		}
+	};
+	return {
+		themeData,
+		progress,
+		tags,
+		handleGoBack,
+		handleCreateQuestion,
+	};
 };

@@ -8,7 +8,7 @@ export const cssModal = createCSSFunction<IModalProps>(({ theme }) => ({
 	transform: `translate(-50%, -50%)`,
 	padding: theme.spacing(10),
 	background: theme.bg.primary,
-	borderRadius: theme.spacing(2),
+	borderRadius: theme.spacing(4),
 	minWidth: theme.spacing(200),
 	boxShadow: theme.boxShadow.primary,
 	backdropFilter: theme.filter.blur.primary,

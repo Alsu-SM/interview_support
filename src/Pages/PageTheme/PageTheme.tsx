@@ -5,6 +5,7 @@ import { cssPage } from '../styles';
 import { usePageTheme } from './hooks';
 import { PageWarningMessage } from '../styled';
 import {
+	CreateQuestionButton,
 	ThemeContent,
 	ThemeDescription,
 	ThemeLabel,
@@ -18,18 +19,24 @@ import {
 import { ThemeQuestionsList } from '../../Containers/ThemeQuestionsList';
 import { Navbar } from '../../Containers/Navbar';
 import { Button } from '../../Components/Button';
-import { IconArrowLeft } from '../../Components/Icons';
+import { IconArrowLeft, IconPlus } from '../../Components/Icons';
 import { Progress } from '../../Components/Progress/Progress';
 
 const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
-	const { themeData, progress, tags, handleGoBack } = usePageTheme();
+	const { themeData, progress, tags, handleGoBack, handleCreateQuestion } =
+		usePageTheme();
+
+	const backButton = (
+		<Button plain onClick={handleGoBack}>
+			<IconArrowLeft /> Back to Dashboard
+		</Button>
+	);
+
 	if (!themeData) {
 		return (
 			<div className={className}>
 				<Navbar />
-				<Button plain onClick={handleGoBack}>
-					<IconArrowLeft /> Back to Dashboard
-				</Button>
+				{backButton}
 				<PageWarningMessage>No theme found</PageWarningMessage>
 			</div>
 		);
@@ -38,9 +45,7 @@ const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	return (
 		<div className={className}>
 			<Navbar />
-			<Button plain onClick={handleGoBack}>
-				<IconArrowLeft /> Back to Dashboard
-			</Button>
+			{backButton}
 			<ThemeContent>
 				<ThemeLeft>
 					<ThemeTitleGroup>
@@ -58,6 +63,9 @@ const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 				</ThemeLeft>
 				<ThemeQuestionsList themeId={themeData.id} />
 			</ThemeContent>
+			<CreateQuestionButton onClick={handleCreateQuestion}>
+				<IconPlus />
+			</CreateQuestionButton>
 		</div>
 	);
 };

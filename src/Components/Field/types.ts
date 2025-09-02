@@ -2,8 +2,10 @@ import { HTMLAttributes } from 'react';
 import { IComponentBaseProps } from '../../types';
 import { IInputProps } from '../Input';
 import { ITextareaProps } from '../Textarea';
+import { MDEditorProps } from '@uiw/react-md-editor';
 
-export type IProps = IInputProps | ITextareaProps;
+export type IMarkDownProps = MDEditorProps;
+export type IProps = IInputProps | ITextareaProps | IMarkDownProps;
 
 export interface IFieldProps
 	extends IComponentBaseProps,
@@ -11,6 +13,6 @@ export interface IFieldProps
 	disabled?: boolean;
 	label?: string;
 	required?: boolean;
-	type: 'input' | 'textarea';
+	type: 'input' | 'textarea' | 'markdown';
 	props: IProps;
 }

@@ -13,6 +13,7 @@ export const TextareaIconResize = styled(IconResize)(({ theme }) => ({
 }));
 export const TextareaElement = styled('textarea')(({ theme }) => ({
 	width: '100%',
+	fontSize: theme.spacing(7),
 	borderRadius: theme.spacing(3),
 	color: theme.text.primary,
 	background: theme.bg.primary,
