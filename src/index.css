@@ -37,6 +37,7 @@ textarea {
 body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input {
 	font-size: 16px !important;
+	line-height: 19px !important;
 }
 
 @keyframes float {

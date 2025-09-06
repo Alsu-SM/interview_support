@@ -6,6 +6,7 @@ import { cssField } from './styles';
 import { IFieldProps, IMarkDownProps } from './types';
 import styled from '@emotion/styled';
 import MDEditor from '@uiw/react-md-editor';
+import { ITagsInputProps, TagsInput } from '../TagsInput';
 
 const FieldUnstyled = ({
 	label,
@@ -18,6 +19,8 @@ const FieldUnstyled = ({
 		switch (type) {
 			case 'input':
 				return <Input {...(props as IInputProps)} />;
+			case 'tags':
+				return <TagsInput {...(props as ITagsInputProps)} />;
 			case 'textarea':
 				return <Textarea {...(props as ITextareaProps)} />;
 			case 'markdown':

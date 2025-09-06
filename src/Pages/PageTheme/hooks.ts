@@ -8,7 +8,7 @@ import {
 import { IStoreType } from '../../Store/types';
 import { createSelector } from '@reduxjs/toolkit';
 import { selectDataSlice } from '../../Store/utils';
-import { renderTag } from './renders';
+import { renderTag } from '../../Components/Tag/utils';
 
 export const usePageTheme = () => {
 	const { id } = useParams();
@@ -26,7 +26,7 @@ export const usePageTheme = () => {
 	);
 
 	const progress = Math.floor(themeData?.progress ?? 0);
-	const tags = (themeData?.tags ?? []).map(renderTag);
+	const tags = (themeData?.tags ?? []).map((tag) => renderTag({ label: tag }));
 
 	const handleGoBack = () => {
 		navigate(`/interview_support/`);

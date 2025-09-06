@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { IOrderedListItemProps } from './types';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { OrderedListItemWrapper } from './styled';
 
 const OrderedListItem: FC<IOrderedListItemProps> = ({ item }) => {
 	const { attributes, listeners, setNodeRef, transform, transition } =
@@ -13,9 +14,14 @@ const OrderedListItem: FC<IOrderedListItemProps> = ({ item }) => {
 	};
 
 	return (
-		<div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+		<OrderedListItemWrapper
+			ref={setNodeRef}
+			style={style}
+			{...attributes}
+			{...listeners}
+		>
 			{item.element}
-		</div>
+		</OrderedListItemWrapper>
 	);
 };
 

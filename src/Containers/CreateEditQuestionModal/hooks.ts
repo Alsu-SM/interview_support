@@ -17,11 +17,15 @@ import { selectDataSlice } from '../../Store/utils';
 import { IStoreType } from '../../Store/types';
 import { IMarkDownProps } from '../../Components/Field';
 import { ITextareaProps } from '../../Components/Textarea';
+import { ITagsInputProps } from '../../Components/TagsInput';
 
 export const useCreateEditQuestionModal = () => {
 	const [question, setQuestion] = useState<ICreateQuestion['question']>(
 		CREATE_QUESTION_DEFAULT,
 	);
+	const [tagsInputValue, setTagsInputValue] =
+		useState<ITagsInputProps['inputValue']>('');
+
 	const dispatch = useDispatch();
 	const { themeToCreateQuestion, questionToEdit } = useSelector(getUI);
 	const getQuestionSelector = createSelector([selectDataSlice], (dataSlice) =>
@@ -67,6 +71,15 @@ export const useCreateEditQuestionModal = () => {
 		}
 	};
 
+	const handleTagsInputValueChange: ITagsInputProps['onInputChange'] = (
+		value,
+	) => {
+		setTagsInputValue(value);
+	};
+	const handleTagsChange: ITagsInputProps['onTagsListChange'] = (tags) => {
+		setQuestion({ ...question, tags });
+	};
+
 	const buttons: IModalProps['buttons'] = [
 		{
 			children: 'Cancel',
@@ -96,6 +109,12 @@ export const useCreateEditQuestionModal = () => {
 		visibleDragbar: false,
 		onChange: handleAnswerChange,
 	};
+	const tagsFieldProps: ITagsInputProps = {
+		inputValue: tagsInputValue,
+		onInputChange: handleTagsInputValueChange,
+		tags: question.tags,
+		onTagsListChange: handleTagsChange,
+	};
 
 	useEffect(() => {
 		if (isEdit && questionData) {
@@ -109,11 +128,21 @@ export const useCreateEditQuestionModal = () => {
 		}
 	}, [isEdit, questionData]);
 
+	useEffect(() => {
+		if (!isEdit && themeToCreateQuestion) {
+			setQuestion((currentQuestion) => ({
+				...currentQuestion,
+				themeId: themeToCreateQuestion,
+			}));
+		}
+	}, [isEdit, themeToCreateQuestion]);
+
 	return {
 		open: isOpen,
 		buttons,
 		questionFieldProps,
 		answerFieldProps,
+		tagsFieldProps,
 		title,
 		handleClose,
 	};

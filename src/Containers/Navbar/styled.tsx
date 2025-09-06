@@ -12,8 +12,13 @@ export const cssNavItem = createCSSFunction<{ active: boolean }>(
 			opacity: 0.7,
 			transitionDuration: theme.transition.duration.standard,
 			transitionTimingFunction: theme.transition.timing.easeInOut,
+			borderRadius: theme.spacing(2),
 			['&:hover']: {
 				opacity: 1,
+			},
+			'&:focus-visible': {
+				outline: `${theme.spacing(1)} solid ${theme.bg.accentDark}`,
+				outlineOffset: theme.spacing(2),
 			},
 		},
 	],

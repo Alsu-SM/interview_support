@@ -1,9 +1,9 @@
 import { ComponentProps } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IQuestion, setQuestionToDelete, setQuestionToEdit } from '../../Store';
-import { renderTag } from './renders';
 import { useDispatch } from 'react-redux';
 import { IButtonIconProps } from '../ButtonIcon';
+import { renderTag } from '../Tag/utils';
 
 export const useQuestionCard = ({ question }: { question: IQuestion }) => {
 	const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const useQuestionCard = ({ question }: { question: IQuestion }) => {
 		dispatch(setQuestionToDelete({ id: question.id }));
 	};
 
-	const tags = question.tags.map(renderTag);
+	const tags = question.tags.map((tag) => renderTag({ label: tag }));
 
 	return { tags, handleClick, handleEdit, handleDelete };
 };

@@ -16,8 +16,10 @@ export const CreateEditQuestionFieldQuestion = styled(Field)(({ theme }) => ({
 		},
 	},
 }));
+export const CreateEditQuestionFieldTags = styled(Field)(() => ({}));
 export const CreateEditQuestionFieldAnswer = styled(Field)(() => ({
 	flex: 1,
+	overflow: 'hidden',
 	[`>div:nth-child(2)`]: {
 		flex: 1,
 	},
@@ -29,6 +31,7 @@ export const CreateEditQuestionModalContent = styled('div')(({ theme }) => ({
 	width: '100%',
 	gap: theme.spacing(10),
 	flex: 1,
+	overflow: 'hidden',
 	[`div.w-md-editor-input, div.w-md-editor-preview `]: [
 		cssScrollbar({
 			theme,

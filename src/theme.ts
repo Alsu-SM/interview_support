@@ -25,6 +25,7 @@ export const themeLight = {
 		page: 'url(/interview_support/images/bg.page.dark.png)',
 		theme: 'url(/interview_support/images/bg.theme.dark.png)',
 		primary: 'rgba(255, 255, 255, 0.4)',
+		primaryOpaque: 'rgba(255, 255, 255, 1)',
 		secondary: 'rgba(255, 255, 255, 0.3)',
 		inverse: {
 			primary: 'rgba(0,0,0,0.3)',
@@ -49,6 +50,7 @@ export const themeDark: IAppTheme = {
 		page: 'url(/interview_support/images/bg.page.dark.png)',
 		theme: 'url(/interview_support/images/bg.theme.dark.png)',
 		primary: 'rgba(0,0,0, 0.4)',
+		primaryOpaque: 'rgba(0,0,0, 1)',
 		secondary: 'rgba(0,0,0, 0.1)',
 		inverse: {
 			primary: 'rgba(255, 255, 255,0.3)',

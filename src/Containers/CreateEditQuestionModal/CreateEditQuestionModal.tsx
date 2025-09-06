@@ -18,6 +18,7 @@ const CreateEditQuestionModalUnstyled: FC<IComponentBaseProps> = ({
 		buttons,
 		questionFieldProps,
 		answerFieldProps,
+		tagsFieldProps,
 		title,
 		handleClose,
 	} = useCreateEditQuestionModal();
@@ -36,6 +37,11 @@ const CreateEditQuestionModalUnstyled: FC<IComponentBaseProps> = ({
 					type="textarea"
 					required
 					props={questionFieldProps}
+				/>
+				<CreateEditQuestionFieldQuestion
+					label={'Tags'}
+					type="tags"
+					props={tagsFieldProps}
 				/>
 				<CreateEditQuestionFieldAnswer
 					label={'Answer'}

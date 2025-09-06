@@ -1,5 +1,0 @@
-import { Tag } from '../Tag';
-
-export const renderTag = (tag: string) => {
-	return <Tag key={tag} label={`#${tag}`} />;
-};

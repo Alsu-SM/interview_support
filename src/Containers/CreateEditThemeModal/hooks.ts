@@ -19,8 +19,9 @@ import { selectDataSlice } from '../../Store/utils';
 import { IStoreType } from '../../Store/types';
 
 export const useCreateEditThemeModal = () => {
-	const [theme, setTheme] =
-		useState<ICreateTheme['theme']>(CREATE_THEME_DEFAULT);
+	const [theme, setTheme] = useState<ICreateTheme['theme']>({
+		...CREATE_THEME_DEFAULT,
+	});
 
 	const dispatch = useDispatch();
 	const { isCreateThemeActive, themeToEdit } = useSelector(getUI);
@@ -43,6 +44,7 @@ export const useCreateEditThemeModal = () => {
 				? setThemeToEdit({ id: null })
 				: setIsCreateThemeActive({ isActive: false }),
 		);
+		setTheme(CREATE_THEME_DEFAULT);
 	};
 
 	const handleNameChange: IInputProps['onChange'] = (event) => {

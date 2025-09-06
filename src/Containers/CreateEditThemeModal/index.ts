@@ -1,1 +1,1 @@
-export * from './CreateThemeModal';
+export * from './CreateEditThemeModal';

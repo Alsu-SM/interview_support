@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { createCSSFunction } from '../../Utils/createCSSFunction';
 import { cssScrollbar } from '../../Utils/scrollbar';
+import { OrderedListItemWrapper } from '../../Components/OrderedList/styled';
 
 export const cssThemesListOrderedListWrapper = createCSSFunction(
 	({ theme }) => [
@@ -20,9 +21,14 @@ export const cssThemesListOrderedListWrapper = createCSSFunction(
 	],
 );
 
-export const ThemesListOrderedListWrapper = styled('div')(
+export const ThemesListOrderedListWrapper = styled('div')(({ theme }) => [
 	cssThemesListOrderedListWrapper,
-);
+	{
+		[String(OrderedListItemWrapper)]: {
+			maxWidth: theme.spacing(300),
+		},
+	},
+]);
 
 export const CreateThemeButton = styled('button')(({ theme }) => [
 	{

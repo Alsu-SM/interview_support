@@ -390,14 +390,16 @@ const frontendData: IDataSlice = {
 		},
 	],
 	ui: {
-		isCreateQuestionActive: false,
 		isCreateThemeActive: false,
-		isEditQuestionActive: false,
-		isEditThemeActive: false,
 		isFocusMode: false,
 		isSearchActive: false,
 		searchTags: [],
 		searchText: '',
+		themeToCreateQuestion: null,
+		themeToDelete: null,
+		questionToDelete: null,
+		themeToEdit: null,
+		questionToEdit: null,
 	},
 };
 

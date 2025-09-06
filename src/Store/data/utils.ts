@@ -5,25 +5,11 @@ import {
 	getRandomSentence,
 	getUUIDv7,
 } from '../../Utils';
-// import { LOCAL_STORAGE_KEY } from '../constants';
-// import { IStoreType } from '../types';
-import frontendData from './constants.internal';
-import { IDataSlice, IQuestion, ITheme } from './types';
+import { LOCAL_STORAGE_KEY } from '../constants';
+import { IStoreType } from '../types';
+import { DATA_SLICE_DEFAULT } from './constants';
 
-const DATA_SLICE_DEFAULT: IDataSlice = {
-	themes: [],
-	questions: [],
-	ui: {
-		isCreateQuestionActive: false,
-		isCreateThemeActive: false,
-		isEditQuestionActive: false,
-		isEditThemeActive: false,
-		isFocusMode: false,
-		isSearchActive: false,
-		searchTags: [],
-		searchText: '',
-	},
-};
+import { IDataSlice, IQuestion, ITheme } from './types';
 
 export const generateInitialData = (): IDataSlice => {
 	const themesCount = 30;
@@ -73,14 +59,12 @@ export const generateInitialData = (): IDataSlice => {
 };
 
 export const restoreLocalStorage = (): IDataSlice => {
-	return frontendData;
+	const store: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
+	if (!store) {
+		return DATA_SLICE_DEFAULT;
+	}
 
-	// const store: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
-	// if (!store) {
-	// 	return DATA_SLICE_DEFAULT;
-	// }
+	const storeParsed: IStoreType = JSON.parse(store);
 
-	// const storeParsed: IStoreType = JSON.parse(store);
-
-	// return storeParsed.dataSlice;
+	return storeParsed.dataSlice;
 };
