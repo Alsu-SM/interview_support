@@ -11,6 +11,7 @@ export const cssQuestionsList = createCSSFunction(({ theme }) => [
 		gridTemplateColumns: `repeat(auto-fit, minmax(350px, 1fr))`,
 		flex: 1,
 		minWidth: theme.spacing(250),
+		padding: theme.spacing(2),
 	},
 	cssScrollbar,
 ]);

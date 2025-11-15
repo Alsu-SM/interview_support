@@ -1,11 +1,14 @@
 import { createCSSFunction } from '../../Utils/createCSSFunction';
-import { QuestionCardButtonsWrapper } from './styled';
+import { QuestionCardButtonsWrapper, QuestionCardRow } from './styled';
 
-export const cssQuestionCard = createCSSFunction(() => ({
+export const cssQuestionCard = createCSSFunction(({ theme }) => ({
 	height: 'fit-content',
-	[`&:hover, &:focus`]: {
+	[`&:hover, &:focus, &:focus-within`]: {
 		[String(QuestionCardButtonsWrapper)]: {
 			opacity: 1,
+		},
+		[String(QuestionCardRow)]: {
+			maxWidth: `calc(100% - ${theme.spacing(35)})`,
 		},
 	},
 }));

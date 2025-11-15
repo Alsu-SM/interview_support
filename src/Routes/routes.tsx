@@ -32,12 +32,14 @@ const routes: RouteItem[] = [
 		displayName: 'Statistics',
 		key: RoutePath.Statistics,
 		element: <PageStatistics />,
+		hidden: true,
 	},
 	{
 		path: '/interview_support/settings',
 		displayName: 'Settings',
 		key: RoutePath.Settings,
 		element: <PageSettings />,
+		hidden: true,
 	},
 ];
 

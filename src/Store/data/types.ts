@@ -1,5 +1,23 @@
 import { CaseReducer, Selector } from '@reduxjs/toolkit';
 
+export enum IHistoryType {
+	Read = 'read',
+	Check = 'check',
+}
+
+export enum IHistoryResult {
+	Hard = 'hard',
+	Medium = 'medium',
+	Easy = 'easy',
+}
+
+export interface IHistoryItem {
+	id: string;
+	date: Date;
+	type: IHistoryType;
+	result?: IHistoryResult;
+}
+
 export interface IQuestion {
 	id: string;
 	themeId: string;
@@ -7,6 +25,9 @@ export interface IQuestion {
 	answer: string;
 	isLearnt: boolean;
 	tags: string[];
+	history: IHistoryItem[];
+	easeFactor: number;
+	interval: number;
 }
 
 export interface ITheme {
@@ -49,7 +70,7 @@ export interface IDataSlice {
 export type IDataSliceName = 'dataSlice';
 
 export interface ICreateQuestion {
-	question: Omit<IQuestion, 'id'>;
+	question: Omit<IQuestion, 'id' | 'history' | 'easeFactor' | 'interval'>;
 }
 
 export interface ISetQuestion {

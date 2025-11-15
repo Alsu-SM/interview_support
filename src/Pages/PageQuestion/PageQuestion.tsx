@@ -5,6 +5,7 @@ import { cssPage } from '../styles';
 import { usePageQuestion } from './hooks';
 import { PageWarningMessage } from '../styled';
 import {
+	QuestionButtonsGroup,
 	QuestionContent,
 	QuestionLabel,
 	QuestionMDEditor,
@@ -13,7 +14,7 @@ import {
 	QuestionTitleGroup,
 } from './styled';
 import { Button } from '../../Components/Button';
-import { IconArrowLeft } from '../../Components/Icons';
+import { IconArrowLeft, IconCheck } from '../../Components/Icons';
 import { Navbar } from '../../Containers/Navbar';
 
 const PageQuestionUnstyled: FC<IComponentBaseProps> = ({ className }) => {
@@ -49,11 +50,17 @@ const PageQuestionUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 				</QuestionTitleGroup>
 				<QuestionMDEditor
 					value={question.answer}
-					height="100%"
+					height="fit-content"
 					visibleDragbar={false}
 					preview="preview"
 					hideToolbar
 				/>
+				<QuestionButtonsGroup>
+					<Button primary>
+						Прочитано
+						<IconCheck />
+					</Button>
+				</QuestionButtonsGroup>
 			</QuestionContent>
 		</div>
 	);

@@ -47,8 +47,14 @@ export const CreateThemeButton = styled('button')(({ theme }) => [
 		opacity: 0.7,
 		marginLeft: 'auto',
 		marginTop: 'auto',
+		marginRight: theme.spacing(2),
+		marginBottom: theme.spacing(2),
 		['&:hover']: {
 			opacity: 1,
+		},
+		'&:focus-visible': {
+			outline: `${theme.spacing(1)} solid ${theme.bg.accentDark}`,
+			outlineOffset: theme.spacing(1),
 		},
 	},
 ]);

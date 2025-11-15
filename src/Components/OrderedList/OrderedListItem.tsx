@@ -19,6 +19,7 @@ const OrderedListItem: FC<IOrderedListItemProps> = ({ item }) => {
 			style={style}
 			{...attributes}
 			{...listeners}
+			tabIndex={-1}
 		>
 			{item.element}
 		</OrderedListItemWrapper>

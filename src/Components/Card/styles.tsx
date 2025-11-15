@@ -20,5 +20,9 @@ export const cssCard = createCSSFunction(({ theme }) => [
 			cursor: 'pointer',
 			opacity: 1,
 		},
+		'&:focus-visible': {
+			outline: `${theme.spacing(1)} solid ${theme.bg.accentDark}`,
+			outlineOffset: theme.spacing(1),
+		},
 	},
 ]);

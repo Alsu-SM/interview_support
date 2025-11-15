@@ -4,5 +4,6 @@ export * from './IconEdit';
 export * from './IconResize';
 export * from './IconClose';
 export * from './IconArrowLeft';
+export * from './IconCheck';
 export * from './styles';
 export * from './types';

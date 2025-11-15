@@ -26,5 +26,9 @@ export const cssButtonIcon = createCSSFunction<IButtonIconProps>(
 				stroke: danger ? theme.text.danger : theme.text.primary,
 			},
 		},
+		'&:focus-visible': {
+			outline: `${theme.spacing(1)} solid ${theme.bg.accentDark}`,
+			outlineOffset: theme.spacing(1),
+		},
 	}),
 );

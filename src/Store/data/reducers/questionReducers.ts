@@ -7,7 +7,13 @@ export const createQuestionReducer: IDataSliceReducers[IDataSliceActions.CreateQ
 			return state;
 		}
 
-		const newQuestion = { ...payload.question, id: getUUIDv7() };
+		const newQuestion = {
+			...payload.question,
+			id: getUUIDv7(),
+			history: [],
+			easeFactor: 0,
+			interval: 0,
+		};
 
 		return {
 			...state,
