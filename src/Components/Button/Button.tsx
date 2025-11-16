@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 
 const ButtonUnstyled = ({
 	danger,
+	warning,
+	success,
 	primary,
 	plain,
 	...restProps

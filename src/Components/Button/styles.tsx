@@ -24,6 +24,24 @@ export const cssButtonDanger = createCSSFunction(({ theme }) => ({
 		opacity: 1,
 	},
 }));
+export const cssButtonWarning = createCSSFunction(({ theme }) => ({
+	borderColor: theme.text.warning,
+	color: theme.text.warning,
+	opacity: 0.9,
+	[`&:hover, &:active`]: {
+		background: theme.bg.warning,
+		opacity: 1,
+	},
+}));
+export const cssButtonSuccess = createCSSFunction(({ theme }) => ({
+	borderColor: theme.text.success,
+	color: theme.text.success,
+	opacity: 0.9,
+	[`&:hover, &:active`]: {
+		background: theme.bg.success,
+		opacity: 1,
+	},
+}));
 export const cssButtonCommon = createCSSFunction(({ theme }) => ({
 	width: 'fit-content',
 	borderRadius: theme.spacing(2),
@@ -54,9 +72,11 @@ export const cssButtonCommon = createCSSFunction(({ theme }) => ({
 	},
 }));
 export const cssButton = createCSSFunction<IButtonProps>(
-	({ danger, primary, plain, disabled }) => [
+	({ danger, warning, success, primary, plain, disabled }) => [
 		cssButtonCommon,
 		danger && cssButtonDanger,
+		warning && cssButtonWarning,
+		success && cssButtonSuccess,
 		primary && cssButtonPrimary,
 		plain && cssButtonPlain,
 		disabled && {

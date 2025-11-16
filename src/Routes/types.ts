@@ -54,6 +54,7 @@ export enum RoutePath {
 	Question = 'question',
 	Statistics = 'statistics',
 	Settings = 'settings',
+	Study = 'study',
 }
 
 export default {};

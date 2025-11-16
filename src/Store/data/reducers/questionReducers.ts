@@ -1,4 +1,10 @@
-import { IDataSliceActions, IDataSliceReducers, IQuestion } from '../types';
+import {
+	IDataSliceActions,
+	IDataSliceReducers,
+	IHistoryItem,
+	IHistoryType,
+	IQuestion,
+} from '../types';
 import { getUUIDv7 } from '../../../Utils';
 
 export const createQuestionReducer: IDataSliceReducers[IDataSliceActions.CreateQuestion] =
@@ -17,10 +23,14 @@ export const createQuestionReducer: IDataSliceReducers[IDataSliceActions.CreateQ
 
 		return {
 			...state,
-			themes: state.themes.map((theme) => ({
-				...theme,
-				questions: [newQuestion, ...theme.questions],
-			})),
+			themes: state.themes.map((theme) => {
+				if (theme.id === payload.question.themeId)
+					return {
+						...theme,
+						questions: [newQuestion, ...theme.questions],
+					};
+				return theme;
+			}),
 			questions: [newQuestion, ...state.questions],
 		};
 	};
@@ -136,5 +146,118 @@ export const setQuestionToEditReducer: IDataSliceReducers[IDataSliceActions.SetQ
 		return {
 			...state,
 			ui: { ...state.ui, questionToEdit: payload.id },
+		};
+	};
+
+export const studyQuestionReducer: IDataSliceReducers[IDataSliceActions.StudyQuestion] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+		const historyItem: IHistoryItem = {
+			id: payload.historyItemId,
+			date: new Date(),
+			type: IHistoryType.Check,
+			result: payload.result,
+		};
+
+		return {
+			...state,
+			questions: state.questions.map((question) => {
+				if (question.id === payload.id) {
+					return { ...question, history: [...question.history, historyItem] };
+				}
+
+				return question;
+			}),
+			themes: state.themes.map((theme) => ({
+				...theme,
+				questions: theme.questions.map((question) => {
+					if (question.id === payload.id) {
+						return { ...question, history: [...question.history, historyItem] };
+					}
+
+					return question;
+				}),
+			})),
+		};
+	};
+
+export const editStudyQuestionReducer: IDataSliceReducers[IDataSliceActions.EditStudyQuestion] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+
+		return {
+			...state,
+			questions: state.questions.map((question) => {
+				if (question.id === payload.id) {
+					return {
+						...question,
+						history: question.history.map((history) => {
+							if (history.id === payload.historyItemId) {
+								return { ...history, result: payload.result };
+							}
+
+							return history;
+						}),
+					};
+				}
+
+				return question;
+			}),
+			themes: state.themes.map((theme) => ({
+				...theme,
+				questions: theme.questions.map((question) => {
+					if (question.id === payload.id) {
+						return {
+							...question,
+							history: question.history.map((history) => {
+								if (history.id === payload.historyItemId) {
+									return { ...history, result: payload.result };
+								}
+
+								return history;
+							}),
+						};
+					}
+
+					return question;
+				}),
+			})),
+		};
+	};
+
+export const readQuestionReducer: IDataSliceReducers[IDataSliceActions.ReadQuestion] =
+	(state, { payload }) => {
+		if (!state) {
+			return state;
+		}
+		const historyItem: IHistoryItem = {
+			id: getUUIDv7(),
+			date: new Date(),
+			type: IHistoryType.Read,
+		};
+
+		return {
+			...state,
+			questions: state.questions.map((question) => {
+				if (question.id === payload.id) {
+					return { ...question, history: [...question.history, historyItem] };
+				}
+
+				return question;
+			}),
+			themes: state.themes.map((theme) => ({
+				...theme,
+				questions: theme.questions.map((question) => {
+					if (question.id === payload.id) {
+						return { ...question, history: [...question.history, historyItem] };
+					}
+
+					return question;
+				}),
+			})),
 		};
 	};

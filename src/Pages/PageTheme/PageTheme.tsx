@@ -6,6 +6,7 @@ import { usePageTheme } from './hooks';
 import { PageWarningMessage } from '../styled';
 import {
 	CreateQuestionButton,
+	StudyThemeButton,
 	ThemeContent,
 	ThemeDescription,
 	ThemeLabel,
@@ -23,8 +24,14 @@ import { IconArrowLeft, IconPlus } from '../../Components/Icons';
 import { Progress } from '../../Components/Progress/Progress';
 
 const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
-	const { themeData, progress, tags, handleGoBack, handleCreateQuestion } =
-		usePageTheme();
+	const {
+		themeData,
+		progress,
+		tags,
+		handleStudy,
+		handleGoBack,
+		handleCreateQuestion,
+	} = usePageTheme();
 
 	const backButton = (
 		<Button plain onClick={handleGoBack}>
@@ -60,6 +67,11 @@ const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 						<Progress value={progress} />
 						<ThemeProgressLabel>{`${progress}% completed`}</ThemeProgressLabel>
 					</ThemeProgressRow>
+					{themeData.questions.length > 0 ? (
+						<StudyThemeButton primary onClick={handleStudy}>
+							Study Theme
+						</StudyThemeButton>
+					) : null}
 				</ThemeLeft>
 				<ThemeQuestionsList themeId={themeData.id} />
 			</ThemeContent>

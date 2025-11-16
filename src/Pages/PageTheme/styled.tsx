@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Button } from '../../Components/Button';
 
 export const ThemeTitle = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(10),
@@ -81,5 +82,11 @@ export const CreateQuestionButton = styled('button')(({ theme }) => [
 			outline: `${theme.spacing(1)} solid ${theme.bg.accentDark}`,
 			outlineOffset: theme.spacing(1),
 		},
+	},
+]);
+
+export const StudyThemeButton = styled(Button)([
+	{
+		width: '100%',
 	},
 ]);

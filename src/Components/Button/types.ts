@@ -6,6 +6,8 @@ export interface IButtonProps
 		HTMLAttributes<HTMLButtonElement> {
 	disabled?: boolean;
 	danger?: boolean;
+	warning?: boolean;
+	success?: boolean;
 	primary?: boolean;
 	plain?: boolean;
 }

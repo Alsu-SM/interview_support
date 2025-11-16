@@ -37,10 +37,18 @@ export const usePageTheme = () => {
 			dispatch(setThemeToCreateQuestion({ id }));
 		}
 	};
+
+	const handleStudy = () => {
+		if (id) {
+			navigate(`/interview_support/study/${id}`);
+		}
+	};
+
 	return {
 		themeData,
 		progress,
 		tags,
+		handleStudy,
 		handleGoBack,
 		handleCreateQuestion,
 	};

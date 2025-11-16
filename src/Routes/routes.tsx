@@ -2,6 +2,7 @@ import PageHome from '../Pages/PageHome';
 import PageQuestion from '../Pages/PageQuestion';
 import PageSettings from '../Pages/PageSettings';
 import PageStatistics from '../Pages/PageStatistics';
+import PageStudy from '../Pages/PageStudy';
 import PageTheme from '../Pages/PageTheme';
 import { RouteItem, RoutePath } from './types';
 
@@ -18,6 +19,13 @@ const routes: RouteItem[] = [
 		displayName: 'Theme',
 		key: RoutePath.Theme,
 		element: <PageTheme />,
+		hidden: true,
+	},
+	{
+		path: '/interview_support/study/:id',
+		displayName: 'Theme',
+		key: RoutePath.Study,
+		element: <PageStudy />,
 		hidden: true,
 	},
 	{

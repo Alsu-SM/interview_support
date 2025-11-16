@@ -11,12 +11,18 @@ export enum IHistoryResult {
 	Easy = 'easy',
 }
 
-export interface IHistoryItem {
-	id: string;
-	date: Date;
-	type: IHistoryType;
-	result?: IHistoryResult;
-}
+export type IHistoryItem =
+	| {
+			id: string;
+			date: Date;
+			type: IHistoryType.Read;
+	  }
+	| {
+			id: string;
+			date: Date;
+			type: IHistoryType.Check;
+			result: IHistoryResult;
+	  };
 
 export interface IQuestion {
 	id: string;
@@ -52,7 +58,6 @@ export interface IUserInterface {
 	isSearchActive: boolean;
 	searchText: string;
 	searchTags: string[];
-	isFocusMode: boolean;
 	isCreateThemeActive: boolean;
 	themeToCreateQuestion: ITheme['id'] | null;
 	themeToDelete: ITheme['id'] | null;
@@ -108,6 +113,22 @@ export interface ISetIsActive {
 	isActive: boolean;
 }
 
+export interface IStudyQuestion {
+	id: IQuestion['id'];
+	historyItemId: IHistoryItem['id'];
+	result: IHistoryResult;
+}
+
+export interface IEditStudyQuestion {
+	id: IQuestion['id'];
+	historyItemId: IHistoryItem['id'];
+	result: IHistoryResult;
+}
+
+export interface IReadQuestion {
+	id: IQuestion['id'];
+}
+
 export enum IDataSliceActions {
 	CreateQuestion = 'createQuestion',
 	DeleteQuestion = 'deleteQuestion',
@@ -123,6 +144,9 @@ export enum IDataSliceActions {
 	SetQuestionToDelete = 'setQuestionToDelete',
 	SetThemeToEdit = 'setThemeToEdit',
 	SetQuestionToEdit = 'setQuestionToEdit',
+	StudyQuestion = 'studyQuestion',
+	EditStudyQuestion = 'editStudyQuestion',
+	ReadQuestion = 'readQuestion',
 }
 
 export type IDataSliceReducers = {
@@ -165,6 +189,27 @@ export type IDataSliceReducers = {
 		IDataSlice,
 		{
 			payload: IEditQuestion;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.StudyQuestion]: CaseReducer<
+		IDataSlice,
+		{
+			payload: IStudyQuestion;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.EditStudyQuestion]: CaseReducer<
+		IDataSlice,
+		{
+			payload: IEditStudyQuestion;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.ReadQuestion]: CaseReducer<
+		IDataSlice,
+		{
+			payload: IReadQuestion;
 			type: string;
 		}
 	>;

@@ -21,11 +21,11 @@ export const cssThemesListOrderedListWrapper = createCSSFunction(
 	],
 );
 
-export const ThemesListOrderedListWrapper = styled('div')(({ theme }) => [
+export const ThemesListOrderedListWrapper = styled('div')(() => [
 	cssThemesListOrderedListWrapper,
 	{
 		[String(OrderedListItemWrapper)]: {
-			maxWidth: theme.spacing(300),
+			// maxWidth: theme.spacing(300),
 		},
 	},
 ]);
