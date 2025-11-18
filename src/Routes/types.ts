@@ -52,6 +52,7 @@ export enum RoutePath {
 	Home = 'home',
 	Theme = 'theme',
 	Question = 'question',
+	Material = 'material',
 	Statistics = 'statistics',
 	Settings = 'settings',
 	Study = 'study',

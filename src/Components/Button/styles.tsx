@@ -44,6 +44,7 @@ export const cssButtonSuccess = createCSSFunction(({ theme }) => ({
 }));
 export const cssButtonCommon = createCSSFunction(({ theme }) => ({
 	width: 'fit-content',
+	position: 'relative',
 	borderRadius: theme.spacing(2),
 	color: theme.text.primary,
 	background: 'transparent',

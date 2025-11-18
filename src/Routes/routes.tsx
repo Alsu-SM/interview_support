@@ -1,4 +1,5 @@
 import PageHome from '../Pages/PageHome';
+import PageMaterial from '../Pages/PageMaterial';
 import PageQuestion from '../Pages/PageQuestion';
 import PageSettings from '../Pages/PageSettings';
 import PageStatistics from '../Pages/PageStatistics';
@@ -33,6 +34,13 @@ const routes: RouteItem[] = [
 		displayName: 'Question',
 		key: RoutePath.Question,
 		element: <PageQuestion />,
+		hidden: true,
+	},
+	{
+		path: '/interview_support/material/:id',
+		displayName: 'Material',
+		key: RoutePath.Material,
+		element: <PageMaterial />,
 		hidden: true,
 	},
 	{

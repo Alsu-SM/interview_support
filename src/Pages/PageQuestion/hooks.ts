@@ -29,5 +29,10 @@ export const usePageQuestion = () => {
 		);
 	};
 
-	return { question, goBackTitle, tags, handleGoBack };
+	return {
+		question,
+		goBackTitle,
+		tags,
+		handleGoBack,
+	};
 };

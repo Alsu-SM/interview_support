@@ -12,6 +12,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectDataSlice } from '../../Store/utils';
 import { IStoreType } from '../../Store/types';
 import { IButtonIconProps } from '../ButtonIcon';
+import { renderTag } from '../Tag/utils';
 
 export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 	const dispatch = useDispatch();
@@ -23,15 +24,10 @@ export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 		getThemeSelector,
 	);
 	const progress = Math.floor(themeData?.progress ?? 0);
-	const studiedQuestionsCount = themeData?.studiedQuestionsCount ?? 0;
 	const tagsList = themeData?.tags ?? [];
 
-	const allTags = tagsList.map((tag) => `#${tag}`).join(' ');
-	const shownTags =
-		tagsList
-			.slice(0, 3)
-			.map((tag) => `#${tag}`)
-			.join(' ') || '-';
+	const allTags = tagsList.map((tag) => renderTag({ label: `#${tag}` }));
+
 	const tagsMore =
 		tagsList.length > 3 ? ` and ${tagsList.length - 3} more` : '';
 	const navigate = useNavigate();
@@ -52,9 +48,7 @@ export const useThemeCard = ({ theme }: { theme: ITheme }) => {
 
 	return {
 		progress,
-		studiedQuestionsCount,
 		allTags,
-		shownTags,
 		tagsMore,
 		handleClick,
 		handleEdit,

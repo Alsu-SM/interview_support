@@ -5,5 +5,4 @@ export const CREATE_QUESTION_DEFAULT: ICreateQuestion['question'] = {
 	question: '',
 	answer: '',
 	tags: [],
-	isLearnt: false,
 };

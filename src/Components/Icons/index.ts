@@ -7,5 +7,6 @@ export * from './IconArrowLeft';
 export * from './IconCheck';
 export * from './IconEyeOpen';
 export * from './IconEyeClosed';
+export * from './IconBookOpen';
 export * from './styles';
 export * from './types';

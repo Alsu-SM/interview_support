@@ -1,7 +1,7 @@
 import {
 	IDataSliceActions,
 	IDataSliceReducers,
-	IHistoryItem,
+	IHistoryItemChecked,
 	IHistoryType,
 	IQuestion,
 } from '../types';
@@ -17,8 +17,6 @@ export const createQuestionReducer: IDataSliceReducers[IDataSliceActions.CreateQ
 			...payload.question,
 			id: getUUIDv7(),
 			history: [],
-			easeFactor: 0,
-			interval: 0,
 		};
 
 		return {
@@ -154,7 +152,7 @@ export const studyQuestionReducer: IDataSliceReducers[IDataSliceActions.StudyQue
 		if (!state) {
 			return state;
 		}
-		const historyItem: IHistoryItem = {
+		const historyItem: IHistoryItemChecked = {
 			id: payload.historyItemId,
 			date: new Date(),
 			type: IHistoryType.Check,
@@ -221,39 +219,6 @@ export const editStudyQuestionReducer: IDataSliceReducers[IDataSliceActions.Edit
 								return history;
 							}),
 						};
-					}
-
-					return question;
-				}),
-			})),
-		};
-	};
-
-export const readQuestionReducer: IDataSliceReducers[IDataSliceActions.ReadQuestion] =
-	(state, { payload }) => {
-		if (!state) {
-			return state;
-		}
-		const historyItem: IHistoryItem = {
-			id: getUUIDv7(),
-			date: new Date(),
-			type: IHistoryType.Read,
-		};
-
-		return {
-			...state,
-			questions: state.questions.map((question) => {
-				if (question.id === payload.id) {
-					return { ...question, history: [...question.history, historyItem] };
-				}
-
-				return question;
-			}),
-			themes: state.themes.map((theme) => ({
-				...theme,
-				questions: theme.questions.map((question) => {
-					if (question.id === payload.id) {
-						return { ...question, history: [...question.history, historyItem] };
 					}
 
 					return question;

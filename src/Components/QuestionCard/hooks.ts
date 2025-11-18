@@ -1,13 +1,31 @@
 import { ComponentProps } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IQuestion, setQuestionToDelete, setQuestionToEdit } from '../../Store';
-import { useDispatch } from 'react-redux';
+import {
+	getQuestionExtended,
+	IQuestion,
+	IQuestionExtended,
+	setQuestionToDelete,
+	setQuestionToEdit,
+} from '../../Store';
+import { useDispatch, useSelector } from 'react-redux';
 import { IButtonIconProps } from '../ButtonIcon';
 import { renderTag } from '../Tag/utils';
+import { createSelector } from '@reduxjs/toolkit';
+import { selectDataSlice } from '../../Store/utils';
+import { IStoreType } from '../../Store/types';
 
 export const useQuestionCard = ({ question }: { question: IQuestion }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const getThemeExtendedSelector = createSelector(
+		[selectDataSlice],
+		(dataSlice) => getQuestionExtended({ dataSlice }, { id: question.id }),
+	);
+
+	const questionData = useSelector<IStoreType, IQuestionExtended | undefined>(
+		getThemeExtendedSelector,
+	);
 
 	const handleClick: ComponentProps<'button'>['onClick'] = () => {
 		navigate(`/interview_support/question/${question.id}`);
@@ -25,5 +43,5 @@ export const useQuestionCard = ({ question }: { question: IQuestion }) => {
 
 	const tags = question.tags.map((tag) => renderTag({ label: tag }));
 
-	return { tags, handleClick, handleEdit, handleDelete };
+	return { tags, questionData, handleClick, handleEdit, handleDelete };
 };

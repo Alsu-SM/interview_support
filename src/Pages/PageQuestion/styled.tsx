@@ -49,6 +49,8 @@ export const QuestionTitleGroup = styled('div')(({ theme }) => ({
 
 export const QuestionButtonsGroup = styled('div')(({ theme }) => ({
 	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
 	gap: theme.spacing(4),
 	zIndex: '1',
 	marginTop: 'auto',
@@ -75,9 +77,4 @@ export const QuestionTags = styled('div')(({ theme }) => ({
 
 export const QuestionLabel = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(8),
-}));
-
-export const QuestionButtons = styled('div')(() => ({
-	display: 'flex',
-	justifyContent: 'space-between',
 }));

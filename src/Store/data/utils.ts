@@ -1,62 +1,8 @@
-import {
-	getRandomBoolean,
-	getRandomInt,
-	getRandomLetterString,
-	getRandomSentence,
-	getUUIDv7,
-} from '../../Utils';
 import { LOCAL_STORAGE_KEY } from '../constants';
 import { IStoreType } from '../types';
 import { DATA_SLICE_DEFAULT } from './constants';
 
-import { IDataSlice, IQuestion, ITheme } from './types';
-
-export const generateInitialData = (): IDataSlice => {
-	const themesCount = 30;
-	const questionsMin = 3;
-	const questionsMax = 15;
-	const tagsMin = 0;
-	const tagsMax = 5;
-
-	const themes: ITheme[] = [];
-	const questionsGlobal: IQuestion[] = [];
-
-	for (let i = 0; i < themesCount; i++) {
-		const id = getUUIDv7();
-		const name = getRandomSentence(getRandomInt(2, 5));
-		const description = getRandomSentence(getRandomInt(5, 9));
-		const questionsCount = getRandomInt(questionsMin, questionsMax);
-		const questions: IQuestion[] = [];
-		for (let j = 0; j < questionsCount; j++) {
-			const questionId = getUUIDv7();
-			const question = getRandomSentence(getRandomInt(5, 9));
-			const answer = getRandomSentence(getRandomInt(5, 15));
-			const isLearnt = getRandomBoolean();
-			const tagsCount = getRandomInt(tagsMin, tagsMax);
-			const tags: string[] = [];
-			for (let k = 0; k < tagsCount; k++) {
-				const tag = getRandomLetterString(getRandomInt(5, 10));
-				tags.push(tag);
-			}
-
-			const currentQuestion = {
-				id: questionId,
-				themeId: id,
-				question,
-				answer,
-				isLearnt,
-				tags,
-			};
-
-			questions.push(currentQuestion);
-			questionsGlobal.push(currentQuestion);
-		}
-
-		themes.push({ id, name, description, questions });
-	}
-
-	return { themes, questions: questionsGlobal, ui: DATA_SLICE_DEFAULT.ui };
-};
+import { IDataSlice, IHistoryItemChecked, IHistoryResult } from './types';
 
 export const restoreLocalStorage = (): IDataSlice => {
 	const store: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -67,4 +13,46 @@ export const restoreLocalStorage = (): IDataSlice => {
 	const storeParsed: IStoreType = JSON.parse(store);
 
 	return storeParsed.dataSlice;
+};
+
+export const getResultByProgress = (progress: number): IHistoryResult => {
+	if (progress >= 90) {
+		return IHistoryResult.Easy;
+	}
+
+	if (progress >= 55) {
+		return IHistoryResult.Medium;
+	}
+
+	return IHistoryResult.Hard;
+};
+
+export const getQuestionMastery = (
+	history: IHistoryItemChecked[],
+): { progress: number; result: IHistoryResult | null } => {
+	if (history.length === 0) return { progress: 0, result: null };
+
+	const weights = {
+		[IHistoryResult.Easy]: 1.0,
+		[IHistoryResult.Medium]: 0.6,
+		[IHistoryResult.Hard]: 0.2,
+	} as const satisfies Record<IHistoryResult, number>;
+
+	// Берем последние 10 ответов (или все, если меньше)
+	const recentHistory = history.slice(-10);
+
+	let weightedSum = 0;
+	let totalWeight = 0;
+
+	// Экспоненциальное взвешивание: последние ответы важнее
+	recentHistory.forEach((record, index) => {
+		const timeWeight = Math.pow(0.8, recentHistory.length - 1 - index); // Последний = 0.8^0 = 1, предпоследний = 0.8^1 = 0.8 и т.д.
+		const difficultyWeight = weights[record.result];
+
+		weightedSum += difficultyWeight * timeWeight;
+		totalWeight += timeWeight;
+	});
+
+	const progress = Math.floor((weightedSum / totalWeight) * 100);
+	return { progress, result: getResultByProgress(progress) };
 };

@@ -10,7 +10,7 @@ export const cssCard = createCSSFunction(({ theme }) => [
 		opacity: 0.7,
 		width: '100%',
 		borderRadius: theme.spacing(10),
-		height: theme.spacing(125),
+		height: theme.spacing(140),
 		boxSizing: 'border-box',
 		display: 'flex',
 		transitionProperty: 'opacity',

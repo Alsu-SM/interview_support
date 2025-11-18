@@ -7,6 +7,9 @@ import styled from '@emotion/styled';
 const TagUnstyled = ({
 	label,
 	allowDelete,
+	success,
+	warning,
+	danger,
 	onDelete,
 	...restProps
 }: ITagProps) => {

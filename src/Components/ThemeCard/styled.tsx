@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { createCSSFunction } from '../../Utils/createCSSFunction';
+import { cssScrollbar } from '../../Utils/scrollbar';
 
 export const cssThemeCardLabel = createCSSFunction(({ theme }) => ({
 	color: theme.text.secondary,
@@ -12,6 +13,7 @@ export const cssThemeCardDescription = createCSSFunction<{
 	color: theme.text.secondary,
 	fontWeight: 200,
 	fontSize: theme.spacing(7),
+	whiteSpace: 'pre-line',
 	borderLeft: border ? `${theme.spacing(1)} solid ${theme.bg.accent}` : ``,
 	padding: border ? theme.spacing(1, 4) : 0,
 	maxHeight: theme.spacing(22),
@@ -29,6 +31,9 @@ export const cssThemeCardProgress = createCSSFunction(({ theme }) => ({
 	fontWeight: 200,
 	fontSize: theme.spacing(6),
 	textAlign: 'left',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
 }));
 
 export const cssThemeCardValue = createCSSFunction(({ theme }) => ({
@@ -40,6 +45,16 @@ export const cssThemeCardValue = createCSSFunction(({ theme }) => ({
 	textOverflow: 'ellipsis',
 	boxSizing: 'border-box',
 }));
+
+export const cssThemeTags = createCSSFunction(({ theme }) => [
+	{
+		display: 'flex',
+		gap: theme.spacing(2),
+		flexWrap: 'nowrap',
+		overflow: 'auto',
+	},
+	cssScrollbar({ inverse: true, small: true, theme }),
+]);
 
 export const cssThemeCardRow = createCSSFunction(({ theme }) => ({
 	display: 'flex',
@@ -62,6 +77,7 @@ export const cssThemeCardButtonsWrapper = createCSSFunction(({ theme }) => ({
 
 export const ThemeCardLabel = styled('div')(cssThemeCardLabel);
 export const ThemeCardValue = styled('span')(cssThemeCardValue);
+export const ThemeTags = styled('span')(cssThemeTags);
 export const ThemeCardRow = styled('div')(cssThemeCardRow);
 export const ThemeCardDescription = styled('span')(cssThemeCardDescription);
 export const ThemeCardProgressRow = styled('div')(cssThemeCardProgressRow);

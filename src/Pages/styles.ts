@@ -15,7 +15,7 @@ export const cssPage = createCSSFunction(({ theme }) => ({
 }));
 
 export const cssPageWarningMessage = createCSSFunction(({ theme }) => ({
-	fontSize: theme.spacing(15),
+	fontSize: theme.spacing(10),
 	fontWeight: 500,
 	textAlign: 'center',
 }));

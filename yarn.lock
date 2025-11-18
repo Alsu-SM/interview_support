@@ -3465,6 +3465,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
+  languageName: node
+  linkType: hard
+
 "debug@npm:4, debug@npm:^4.0.0":
   version: 4.4.1
   resolution: "debug@npm:4.4.1"
@@ -4963,6 +4970,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:4.2.1"
     babel: "npm:^6.23.0"
     css: "npm:^3.0.0"
+    date-fns: "npm:^4.1.0"
     eslint: "npm:8.56.0"
     eslint-plugin-jsx-a11y: "npm:6.8.0"
     eslint-plugin-prettier: "npm:5.1.3"

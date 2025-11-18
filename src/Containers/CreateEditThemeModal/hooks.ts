@@ -104,6 +104,7 @@ export const useCreateEditThemeModal = () => {
 				name: themeData.name,
 				description: themeData.description,
 				questions: themeData.questions,
+				materials: themeData.materials,
 			});
 		}
 	}, [isEdit, themeData]);

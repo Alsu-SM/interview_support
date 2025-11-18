@@ -22,12 +22,17 @@ import { Navbar } from '../../Containers/Navbar';
 import { Button } from '../../Components/Button';
 import { IconArrowLeft, IconPlus } from '../../Components/Icons';
 import { Progress } from '../../Components/Progress/Progress';
+import { ThemeMaterialsList } from '../../Containers/ThemeMaterialsList';
+import { Tabs } from '../../Components/Tabs';
+import { IThemePageTabValue } from './types';
 
 const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const {
 		themeData,
 		progress,
 		tags,
+		tabValue,
+		handleTabChange,
 		handleStudy,
 		handleGoBack,
 		handleCreateQuestion,
@@ -73,7 +78,22 @@ const PageThemeUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 						</StudyThemeButton>
 					) : null}
 				</ThemeLeft>
-				<ThemeQuestionsList themeId={themeData.id} />
+				<Tabs
+					onChange={handleTabChange}
+					selectedId={tabValue}
+					items={[
+						{
+							id: IThemePageTabValue.Question,
+							label: 'Questions',
+							content: <ThemeQuestionsList themeId={themeData.id} />,
+						},
+						{
+							id: IThemePageTabValue.Material,
+							label: 'Materials',
+							content: <ThemeMaterialsList themeId={themeData.id} />,
+						},
+					]}
+				/>
 			</ThemeContent>
 			<CreateQuestionButton onClick={handleCreateQuestion}>
 				<IconPlus />

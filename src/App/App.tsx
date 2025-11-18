@@ -7,6 +7,7 @@ import { IComponentBaseProps } from '../types';
 import { DeleteModal } from '../Containers/DeleteModal';
 import { CreateEditThemeModal } from '../Containers/CreateEditThemeModal';
 import { CreateEditQuestionModal } from '../Containers/CreateEditQuestionModal';
+import { CreateEditMaterialModal } from '../Containers/CreateEditMaterialModal';
 
 function App({ className }: IComponentBaseProps) {
 	const theme = useSelector(getAppTheme);
@@ -18,6 +19,7 @@ function App({ className }: IComponentBaseProps) {
 				<DeleteModal />
 				<CreateEditThemeModal />
 				<CreateEditQuestionModal />
+				<CreateEditMaterialModal />
 			</div>
 		</ThemeProvider>
 	);

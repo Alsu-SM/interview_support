@@ -58,14 +58,33 @@ export const useCreateEditQuestionModal = () => {
 	};
 
 	const handleCreate = () => {
-		dispatch(createQuestion({ question: question }));
+		dispatch(
+			createQuestion({
+				question: {
+					...question,
+					tags: Array.from(
+						new Set([...question.tags, ...tagsInputValue.split(',')]),
+					),
+				},
+			}),
+		);
 		dispatch(setThemeToCreateQuestion({ id: null }));
 		setQuestion(CREATE_QUESTION_DEFAULT);
 	};
 
 	const handleEdit = () => {
 		if (questionToEdit) {
-			dispatch(editQuestion({ question: question, id: questionToEdit }));
+			dispatch(
+				editQuestion({
+					question: {
+						...question,
+						tags: Array.from(
+							new Set([...question.tags, ...tagsInputValue.split(',')]),
+						),
+					},
+					id: questionToEdit,
+				}),
+			);
 			dispatch(setQuestionToEdit({ id: null }));
 			setQuestion(CREATE_QUESTION_DEFAULT);
 		}
@@ -123,7 +142,6 @@ export const useCreateEditQuestionModal = () => {
 				answer: questionData.answer,
 				tags: questionData.tags,
 				themeId: questionData.themeId,
-				isLearnt: questionData.isLearnt,
 			});
 		}
 	}, [isEdit, questionData]);

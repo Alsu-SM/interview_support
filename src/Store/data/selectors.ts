@@ -2,8 +2,10 @@ import { createSelector } from '@reduxjs/toolkit';
 import {
 	IDataSlice,
 	IDataSliceSelectors,
+	IGetMaterial,
 	IGetQuestion,
 	IGetTheme,
+	IMaterial,
 	IQuestion,
 	IQuestionExtended,
 	ITheme,
@@ -11,6 +13,7 @@ import {
 	IUserInterface,
 } from './types';
 import { selectSelf, selectSelfWithParams } from '../utils';
+import { getQuestionMastery, getResultByProgress } from './utils';
 
 export const uiSelector: IDataSliceSelectors['getUI'] = createSelector<
 	[typeof selectSelf<IDataSlice>],
@@ -35,6 +38,13 @@ export const getQuestionSelector: IDataSliceSelectors['getQuestion'] =
 	>(selectSelfWithParams, ({ state, params }) =>
 		state.questions.find((question) => question.id === params.id),
 	);
+export const getMaterialSelector: IDataSliceSelectors['getMaterial'] =
+	createSelector<
+		[typeof selectSelfWithParams<IDataSlice, IGetMaterial>],
+		IMaterial | undefined
+	>(selectSelfWithParams, ({ state, params }) =>
+		state.materials.find((material) => material.id === params.id),
+	);
 
 export const getQuestionExtendedSelector: IDataSliceSelectors['getQuestionExtended'] =
 	createSelector<
@@ -51,7 +61,9 @@ export const getQuestionExtendedSelector: IDataSliceSelectors['getQuestionExtend
 
 		const theme = state.themes.find((theme) => theme.id === question?.themeId);
 
-		return { ...question, theme };
+		const { progress, result } = getQuestionMastery(question.history);
+
+		return { ...question, theme, progress, result };
 	});
 
 export const getThemeSelector: IDataSliceSelectors['getTheme'] = createSelector<
@@ -75,35 +87,37 @@ export const getThemeExtendedSelector: IDataSliceSelectors['getThemeExtended'] =
 			(question) => question.themeId === params.id,
 		);
 
-		const tags = Array.from(
-			new Set(
-				questions.reduce((tags: string[], question) => {
-					return [...tags, ...question.tags];
-				}, []),
-			),
+		const materials = state.materials.filter(
+			(material) => material.themeId === params.id,
 		);
 
-		const studiedQuestionsCount = questions.reduce((count, question) => {
-			if (question.isLearnt) {
-				count++;
-			}
+		const tags = Array.from(
+			new Set([
+				...questions.reduce((tags: string[], question) => {
+					return [...tags, ...question.tags];
+				}, []),
+				...materials.reduce((tags: string[], material) => {
+					return [...tags, ...material.tags];
+				}, []),
+			]),
+		);
 
-			return count;
-		}, 0);
+		const avgProgress = Math.floor(
+			questions.reduce((count, question) => {
+				const { progress } = getQuestionMastery(question.history);
+				count += progress;
 
-		const isLearnt = studiedQuestionsCount === questions.length;
+				return count;
+			}, 0) / questions.length,
+		);
 
-		const progress =
-			questions.length === 0
-				? 0
-				: (studiedQuestionsCount / questions.length) * 100;
+		const avgResult = getResultByProgress(avgProgress);
 
 		return {
 			...theme,
 			questions,
 			tags,
-			isLearnt,
-			progress,
-			studiedQuestionsCount,
+			progress: avgProgress,
+			result: avgResult,
 		};
 	});

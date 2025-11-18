@@ -13,15 +13,18 @@ import { Card } from '../Card';
 import { cssQuestionCard } from './styles';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import { IconDelete, IconEdit } from '../Icons';
+import { Tag } from '../Tag';
+import { IHistoryResult } from '../../Store';
 
 const QuestionCardUnstyled: FC<IQuestionCardProps> = ({
 	id,
 	question,
 	className,
 }) => {
-	const { tags, handleClick, handleEdit, handleDelete } = useQuestionCard({
-		question,
-	});
+	const { tags, questionData, handleClick, handleEdit, handleDelete } =
+		useQuestionCard({
+			question,
+		});
 
 	return (
 		<Card className={className} onClick={handleClick} id={id} key={id}>
@@ -41,6 +44,16 @@ const QuestionCardUnstyled: FC<IQuestionCardProps> = ({
 					{tags.length ? <QuestionTagsList>{tags}</QuestionTagsList> : '-'}
 				</QuestionCardValue>
 			</QuestionCardRow>
+			{questionData && (
+				<QuestionCardRow>
+					<Tag
+						label={`${questionData.progress}%`}
+						success={questionData.result === IHistoryResult.Easy}
+						warning={questionData.result === IHistoryResult.Medium}
+						danger={questionData.result === IHistoryResult.Hard}
+					/>
+				</QuestionCardRow>
+			)}
 		</Card>
 	);
 };

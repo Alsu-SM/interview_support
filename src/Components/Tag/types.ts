@@ -7,6 +7,9 @@ export interface ITagProps
 	label: string;
 	allowDelete?: boolean;
 	selected?: boolean;
+	success?: boolean;
+	warning?: boolean;
+	danger?: boolean;
 	onSelectChange?: (selected: boolean) => void;
 	onDelete?: () => void;
 }

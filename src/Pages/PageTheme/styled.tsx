@@ -7,6 +7,7 @@ export const ThemeTitle = styled('div')(({ theme }) => ({
 export const ThemeDescription = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(8),
 	color: theme.text.secondary,
+	whiteSpace: 'pre-line',
 }));
 
 export const ThemeContent = styled('div')(({ theme }) => ({

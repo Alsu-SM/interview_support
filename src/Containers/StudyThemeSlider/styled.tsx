@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import { Button } from '../../Components/Button';
 import { Tag } from '../../Components/Tag';
-import { IHistoryResult } from '../../Store';
-import { getTagStyle } from './utils';
 
 export const ThemeTitle = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(10),
@@ -99,11 +97,6 @@ export const QuestionResultQuestionLabel = styled('div')(({ theme }) => ({
 	fontSize: theme.spacing(8),
 }));
 
-export const QuestionResultTag = styled(Tag)<{ result: IHistoryResult | null }>(
-	({ theme, result }) => ({
-		pointerEvents: 'none',
-		borderColor: getTagStyle(result, theme)?.text,
-		color: getTagStyle(result, theme)?.text,
-		background: getTagStyle(result, theme)?.bg,
-	}),
-);
+export const QuestionResultTag = styled(Tag)({
+	pointerEvents: 'none',
+});

@@ -11,29 +11,34 @@ export enum IHistoryResult {
 	Easy = 'easy',
 }
 
-export type IHistoryItem =
-	| {
-			id: string;
-			date: Date;
-			type: IHistoryType.Read;
-	  }
-	| {
-			id: string;
-			date: Date;
-			type: IHistoryType.Check;
-			result: IHistoryResult;
-	  };
+export interface IHistoryItemRead {
+	id: string;
+	date: Date;
+	type: IHistoryType.Read;
+}
+export interface IHistoryItemChecked {
+	id: string;
+	date: Date;
+	type: IHistoryType.Check;
+	result: IHistoryResult;
+}
 
 export interface IQuestion {
 	id: string;
 	themeId: string;
 	question: string;
 	answer: string;
-	isLearnt: boolean;
 	tags: string[];
-	history: IHistoryItem[];
-	easeFactor: number;
-	interval: number;
+	history: IHistoryItemChecked[];
+}
+
+export interface IMaterial {
+	id: string;
+	title: string;
+	themeId: string;
+	material: string;
+	tags: string[];
+	history: IHistoryItemRead[];
 }
 
 export interface ITheme {
@@ -41,17 +46,19 @@ export interface ITheme {
 	name: string;
 	description: string;
 	questions: IQuestion[];
+	materials: IMaterial[];
 }
 
 export interface IThemeExtended extends ITheme {
-	isLearnt: boolean;
-	progress: number;
-	studiedQuestionsCount: number;
 	tags: string[];
+	progress: number;
+	result: IHistoryResult;
 }
 
 export interface IQuestionExtended extends IQuestion {
 	theme?: ITheme;
+	progress: number;
+	result: IHistoryResult | null;
 }
 
 export interface IUserInterface {
@@ -60,22 +67,26 @@ export interface IUserInterface {
 	searchTags: string[];
 	isCreateThemeActive: boolean;
 	themeToCreateQuestion: ITheme['id'] | null;
+	themeToCreateMaterial: ITheme['id'] | null;
 	themeToDelete: ITheme['id'] | null;
 	questionToDelete: IQuestion['id'] | null;
 	themeToEdit: ITheme['id'] | null;
 	questionToEdit: IQuestion['id'] | null;
+	materialToEdit: IQuestion['id'] | null;
+	materialToDelete: IQuestion['id'] | null;
 }
 
 export interface IDataSlice {
 	themes: ITheme[];
 	questions: IQuestion[];
+	materials: IMaterial[];
 	ui: IUserInterface;
 }
 
 export type IDataSliceName = 'dataSlice';
 
 export interface ICreateQuestion {
-	question: Omit<IQuestion, 'id' | 'history' | 'easeFactor' | 'interval'>;
+	question: Omit<IQuestion, 'id' | 'history'>;
 }
 
 export interface ISetQuestion {
@@ -104,6 +115,11 @@ export interface IReorderThemes {
 	ids: ITheme['id'][];
 }
 
+export interface IReorderMaterials {
+	themeId: ITheme['id'];
+	ids: IMaterial['id'][];
+}
+
 export interface IReorderQuestions {
 	themeId: ITheme['id'];
 	ids: IQuestion['id'][];
@@ -115,18 +131,31 @@ export interface ISetIsActive {
 
 export interface IStudyQuestion {
 	id: IQuestion['id'];
-	historyItemId: IHistoryItem['id'];
+	historyItemId: IHistoryItemRead['id'];
 	result: IHistoryResult;
 }
 
 export interface IEditStudyQuestion {
 	id: IQuestion['id'];
-	historyItemId: IHistoryItem['id'];
+	historyItemId: IHistoryItemRead['id'];
 	result: IHistoryResult;
 }
 
-export interface IReadQuestion {
-	id: IQuestion['id'];
+export interface ICreateMaterial {
+	material: Omit<IMaterial, 'id' | 'history'>;
+}
+
+export interface ISetMaterial {
+	id: IMaterial['id'] | null;
+}
+
+export interface IEditMaterial {
+	material: Partial<Omit<IMaterial, 'id'>>;
+	id: IMaterial['id'];
+}
+
+export interface IReadMaterial {
+	id: IMaterial['id'];
 }
 
 export enum IDataSliceActions {
@@ -140,13 +169,20 @@ export enum IDataSliceActions {
 	ReorderQuestions = 'reorderQuestions',
 	SetIsCreateThemeActive = 'setIsCreateThemeActive',
 	SetThemeToCreateQuestion = 'setThemeToCreateQuestion',
+	SetThemeToCreateMaterial = 'setThemeToCreateMaterial',
 	SetThemeToDelete = 'setThemeToDelete',
 	SetQuestionToDelete = 'setQuestionToDelete',
 	SetThemeToEdit = 'setThemeToEdit',
 	SetQuestionToEdit = 'setQuestionToEdit',
 	StudyQuestion = 'studyQuestion',
 	EditStudyQuestion = 'editStudyQuestion',
-	ReadQuestion = 'readQuestion',
+	ReadMaterial = 'readMaterial',
+	CreateMaterial = 'createMaterial',
+	DeleteMaterial = 'deleteMaterial',
+	EditMaterial = 'editMaterial',
+	SetMaterialToDelete = 'setMaterialToDelete',
+	SetMaterialToEdit = 'setMaterialToEdit',
+	ReorderMaterials = 'reorderMaterials',
 }
 
 export type IDataSliceReducers = {
@@ -206,13 +242,6 @@ export type IDataSliceReducers = {
 			type: string;
 		}
 	>;
-	[IDataSliceActions.ReadQuestion]: CaseReducer<
-		IDataSlice,
-		{
-			payload: IReadQuestion;
-			type: string;
-		}
-	>;
 	[IDataSliceActions.CreateTheme]: CaseReducer<
 		IDataSlice,
 		{
@@ -262,13 +291,6 @@ export type IDataSliceReducers = {
 			type: string;
 		}
 	>;
-	[IDataSliceActions.ReorderQuestions]: CaseReducer<
-		IDataSlice,
-		{
-			payload: IReorderQuestions;
-			type: string;
-		}
-	>;
 	[IDataSliceActions.SetIsCreateThemeActive]: CaseReducer<
 		IDataSlice,
 		{
@@ -276,10 +298,70 @@ export type IDataSliceReducers = {
 			type: string;
 		}
 	>;
+	[IDataSliceActions.ReadMaterial]: CaseReducer<
+		IDataSlice,
+		{
+			payload: IReadMaterial;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.CreateMaterial]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ICreateMaterial;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.DeleteMaterial]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetMaterial;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.EditMaterial]: CaseReducer<
+		IDataSlice,
+		{
+			payload: IEditMaterial;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.SetMaterialToEdit]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetMaterial;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.SetMaterialToDelete]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetMaterial;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.SetThemeToCreateMaterial]: CaseReducer<
+		IDataSlice,
+		{
+			payload: ISetTheme;
+			type: string;
+		}
+	>;
+	[IDataSliceActions.ReorderMaterials]: CaseReducer<
+		IDataSlice,
+		{
+			payload: IReorderMaterials;
+			type: string;
+		}
+	>;
 };
 
 export interface IGetQuestion {
 	id: IQuestion['id'];
+}
+
+export interface IGetMaterial {
+	id: IMaterial['id'];
 }
 
 export interface IGetTheme {
@@ -295,6 +377,7 @@ export type IDataSliceSelectors = {
 	getQuestions: Selector<IDataSlice, IQuestion[]>;
 	getThemes: Selector<IDataSlice, ITheme[]>;
 	getQuestion: Selector<IDataSlice, IQuestion | undefined, [IGetQuestion]>;
+	getMaterial: Selector<IDataSlice, IMaterial | undefined, [IGetMaterial]>;
 	getQuestionExtended: Selector<
 		IDataSlice,
 		IQuestionExtended | undefined,
