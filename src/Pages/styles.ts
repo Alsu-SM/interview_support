@@ -12,6 +12,7 @@ export const cssPage = createCSSFunction(({ theme }) => ({
 	display: 'flex',
 	flexDirection: 'column',
 	gap: theme.spacing(8),
+	maxHeight: '100dvh',
 }));
 
 export const cssPageWarningMessage = createCSSFunction(({ theme }) => ({

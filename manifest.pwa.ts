@@ -8,12 +8,13 @@ const manifest: Partial<VitePWAOptions> = {
 		enabled: true,
 	},
 	manifest: {
+		display: 'minimal-ui',
 		name: 'interview_support',
 		short_name: 'interview_support',
-		theme_color: '#171717',
+		theme_color: '#000000',
 		start_url: 'https://alsu-sm.github.io/interview_support/',
 		scope: 'https://alsu-sm.github.io/interview_support/',
-		background_color: '#171717',
+		background_color: '#000000',
 		icons: [
 			{
 				src: './icons/144_144.png',
