@@ -2,21 +2,20 @@ import { cssIcon } from './styles';
 import { IIconProps } from './types';
 import styled from '@emotion/styled';
 
-const IconPlusUnstyled = ({ className }: IIconProps) => {
+const IconLineChartUnstyled = ({ className }: IIconProps) => {
 	return (
 		<svg
-			width="72"
-			height="72"
-			viewBox="0 0 72 72"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			className={className}
 		>
 			<path
-				id="Icon"
-				d="M36 18V54M54 36H18"
+				d="M3 16.5L9 10L13 16L21 6.5"
 				stroke="black"
-				strokeWidth="4"
+				strokeWidth="1.5"
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			/>
@@ -24,6 +23,6 @@ const IconPlusUnstyled = ({ className }: IIconProps) => {
 	);
 };
 
-IconPlusUnstyled.displayName = 'IconPlusUnstyled';
+IconLineChartUnstyled.displayName = 'IconLineChartUnstyled';
 
-export const IconPlus = styled(IconPlusUnstyled)(cssIcon);
+export const IconLineChart = styled(IconLineChartUnstyled)(cssIcon);

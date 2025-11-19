@@ -36,8 +36,10 @@ import {
 	getMaterialSelector,
 	getQuestionExtendedSelector,
 	getQuestionSelector,
+	getStatisticsSelector,
 	getThemeExtendedSelector,
 	getThemeSelector,
+	materialsSelector,
 	questionsSelector,
 	themesSelector,
 	uiSelector,
@@ -81,12 +83,14 @@ const dataSlice = createSlice<
 	selectors: {
 		getUI: uiSelector,
 		getQuestions: questionsSelector,
+		getMaterials: materialsSelector,
 		getThemes: themesSelector,
 		getQuestion: getQuestionSelector,
 		getMaterial: getMaterialSelector,
 		getQuestionExtended: getQuestionExtendedSelector,
 		getTheme: getThemeSelector,
 		getThemeExtended: getThemeExtendedSelector,
+		getStatistics: getStatisticsSelector,
 	},
 });
 
@@ -120,12 +124,14 @@ export const {
 export const {
 	getUI,
 	getQuestions,
+	getMaterials,
 	getThemes,
 	getQuestion,
 	getMaterial,
 	getQuestionExtended,
 	getTheme,
 	getThemeExtended,
+	getStatistics,
 } = dataSlice.selectors;
 
 export default dataSlice.reducer;

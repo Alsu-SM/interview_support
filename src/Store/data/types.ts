@@ -1,4 +1,5 @@
 import { CaseReducer, Selector } from '@reduxjs/toolkit';
+import { IDataItem } from '../../Components/LineChart/types';
 
 export enum IHistoryType {
 	Read = 'read',
@@ -22,6 +23,8 @@ export interface IHistoryItemChecked {
 	type: IHistoryType.Check;
 	result: IHistoryResult;
 }
+
+export type IHistoryItem = IHistoryItemRead | IHistoryItemChecked;
 
 export interface IQuestion {
 	id: string;
@@ -372,9 +375,27 @@ export interface IGetUI {
 	id: ITheme['id'];
 }
 
+export type IHistoryStatistics =
+	| (IHistoryItemChecked & { question: IQuestion; themeTitle: string })
+	| (IHistoryItemRead & { material: IMaterial; themeTitle: string });
+
+export interface IStatistics {
+	recentActivity: IHistoryStatistics[];
+	totalThemes: number;
+	totalQuestions: number;
+	totalMaterials: number;
+	totalStudySessions: number;
+	totalMaterialsRead: number;
+	overallMastery: number;
+	studiedQuestionsSeries: IDataItem[];
+	readMaterialsSeries: IDataItem[];
+	masterySeries: IDataItem[];
+}
+
 export type IDataSliceSelectors = {
 	getUI: Selector<IDataSlice, IUserInterface>;
 	getQuestions: Selector<IDataSlice, IQuestion[]>;
+	getMaterials: Selector<IDataSlice, IMaterial[]>;
 	getThemes: Selector<IDataSlice, ITheme[]>;
 	getQuestion: Selector<IDataSlice, IQuestion | undefined, [IGetQuestion]>;
 	getMaterial: Selector<IDataSlice, IMaterial | undefined, [IGetMaterial]>;
@@ -389,4 +410,5 @@ export type IDataSliceSelectors = {
 		IThemeExtended | undefined,
 		[IGetTheme]
 	>;
+	getStatistics: Selector<IDataSlice, IStatistics>;
 };

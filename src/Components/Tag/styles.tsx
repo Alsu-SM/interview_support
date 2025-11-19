@@ -8,6 +8,7 @@ export const cssTag = createCSSFunction<ITagProps>(
 			display: 'flex',
 			alignItems: 'center',
 			whiteSpace: 'nowrap',
+			height: 'fit-content',
 			gap: theme.spacing(2),
 			fontSize: theme.spacing(6),
 			color: theme.text.secondary,

@@ -16,9 +16,9 @@ const IconCloseUnstyled = ({ className }: IIconProps) => {
 				id="Icon"
 				d="M18 18L54 54M54 18L18 54"
 				stroke="black"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);

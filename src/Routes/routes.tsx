@@ -48,7 +48,7 @@ const routes: RouteItem[] = [
 		displayName: 'Statistics',
 		key: RoutePath.Statistics,
 		element: <PageStatistics />,
-		hidden: true,
+		hidden: false,
 	},
 	{
 		path: '/interview_support/settings',

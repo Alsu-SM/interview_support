@@ -5,15 +5,19 @@ import {
 	IGetMaterial,
 	IGetQuestion,
 	IGetTheme,
+	IHistoryStatistics,
 	IMaterial,
 	IQuestion,
 	IQuestionExtended,
+	IStatistics,
 	ITheme,
 	IThemeExtended,
 	IUserInterface,
 } from './types';
 import { selectSelf, selectSelfWithParams } from '../utils';
 import { getQuestionMastery, getResultByProgress } from './utils';
+import { IDataItem } from '../../Components/LineChart/types';
+import { isAfter, isBefore, isSameDay, subDays, subMonths } from 'date-fns';
 
 export const uiSelector: IDataSliceSelectors['getUI'] = createSelector<
 	[typeof selectSelf<IDataSlice>],
@@ -24,6 +28,11 @@ export const questionsSelector: IDataSliceSelectors['getQuestions'] =
 	createSelector<[typeof selectSelf<IDataSlice>], IQuestion[]>(
 		selectSelf,
 		(state) => state.questions,
+	);
+export const materialsSelector: IDataSliceSelectors['getMaterials'] =
+	createSelector<[typeof selectSelf<IDataSlice>], IMaterial[]>(
+		selectSelf,
+		(state) => state.materials,
 	);
 
 export const themesSelector: IDataSliceSelectors['getThemes'] = createSelector<
@@ -121,3 +130,129 @@ export const getThemeExtendedSelector: IDataSliceSelectors['getThemeExtended'] =
 			result: avgResult,
 		};
 	});
+
+export const getStatisticsSelector: IDataSliceSelectors['getStatistics'] =
+	createSelector<[typeof selectSelf<IDataSlice>], IStatistics>(
+		selectSelf,
+		(state) => {
+			const { materials, questions, themes } = state;
+			const checkSessionIds = new Set<string>([]);
+			const readSessionIds = new Set<string>([]);
+			let recentActivity: IHistoryStatistics[] = [];
+			const overallMastery =
+				questions.length > 0
+					? Math.floor(
+							questions.reduce((count, question) => {
+								const { progress } = getQuestionMastery(question.history);
+								count += progress;
+								recentActivity = [
+									...recentActivity,
+									...question.history.map((history) => ({
+										...history,
+										question,
+										themeTitle:
+											themes.find(({ id }) => question.themeId === id)?.name ??
+											'',
+									})),
+								];
+								for (let history of question.history) {
+									checkSessionIds.add(history.id);
+								}
+
+								return count;
+							}, 0) / questions.length,
+						)
+					: 0;
+
+			materials.forEach((material) => {
+				recentActivity = [
+					...recentActivity,
+					...material.history.map((history) => ({
+						...history,
+						material,
+						themeTitle:
+							themes.find(({ id }) => material.themeId === id)?.name ?? '',
+					})),
+				];
+				for (let history of material.history) {
+					readSessionIds.add(history.id);
+				}
+			});
+
+			let currentDate = new Date();
+			let firstHistoryDate = currentDate;
+
+			questions.forEach((question) => {
+				question.history.forEach((history) => {
+					if (isBefore(history.date, firstHistoryDate)) {
+						firstHistoryDate = history.date;
+					}
+				});
+			});
+
+			const firstDate = isBefore(firstHistoryDate, subMonths(new Date(), 1))
+				? subMonths(new Date(), 1)
+				: subDays(firstHistoryDate, 1);
+
+			const studiedQuestionsSeries: IDataItem[] = [];
+			const readMaterialsSeries: IDataItem[] = [];
+			const masterySeries: IDataItem[] = [];
+
+			while (isAfter(currentDate, firstDate)) {
+				const studyIds = new Set<string>([]);
+				const readIds = new Set<string>([]);
+
+				let mastery = 0;
+
+				questions.forEach((question) => {
+					question.history.forEach((history) => {
+						if (isSameDay(history.date, currentDate)) {
+							studyIds.add(history.id);
+						}
+					});
+					const { progress } = getQuestionMastery(
+						question.history.filter((history) =>
+							isBefore(history.date, currentDate),
+						),
+					);
+					mastery += progress;
+				});
+				materials.forEach((material) => {
+					material.history.forEach((history) => {
+						if (isSameDay(history.date, currentDate)) {
+							readIds.add(history.id);
+						}
+					});
+				});
+
+				studiedQuestionsSeries.push({
+					date: currentDate,
+					value: studyIds.size,
+				});
+				readMaterialsSeries.push({
+					date: currentDate,
+					value: readIds.size,
+				});
+				masterySeries.push({
+					date: currentDate,
+					value: Math.floor(mastery / questions.length),
+				});
+				currentDate = subDays(currentDate, 1);
+			}
+
+			return {
+				recentActivity: recentActivity
+					.sort((a, b) => +new Date(b.date) - +new Date(a.date))
+					.slice(0, 30),
+				totalThemes: themes.length,
+				totalQuestions: questions.length,
+				totalMaterials: materials.length,
+				totalStudySessions: checkSessionIds.size,
+				totalMaterialsRead: readSessionIds.size,
+				overallMastery: overallMastery,
+				studiedQuestionsSeries: studiedQuestionsSeries.reverse(),
+				readMaterialsSeries: readMaterialsSeries.reverse(),
+				masterySeries: masterySeries.reverse(),
+			};
+		},
+	);

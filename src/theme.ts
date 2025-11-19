@@ -15,6 +15,7 @@ export const themeLight = {
 		blur: {
 			primary: 'blur(4px)',
 			secondary: 'blur(2px)',
+			tertiary: 'blur(1px)',
 		},
 	},
 	boxShadow: {

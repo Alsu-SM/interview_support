@@ -28,6 +28,7 @@ import { Progress } from '../../Components/Progress/Progress';
 import { IHistoryResult } from '../../Store';
 import { QuestionMDEditor } from '../../Pages/PageQuestion/styled';
 import { PageWarningMessage } from '../../Pages/styled';
+import { cssStudyThemeSlider } from './styles';
 
 const StudyThemeSliderUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 	const {
@@ -138,5 +139,5 @@ const StudyThemeSliderUnstyled: FC<IComponentBaseProps> = ({ className }) => {
 
 StudyThemeSliderUnstyled.displayName = 'StudyThemeSliderUnstyled';
 
-const StudyThemeSlider = styled(StudyThemeSliderUnstyled)(``);
+const StudyThemeSlider = styled(StudyThemeSliderUnstyled)(cssStudyThemeSlider);
 export default StudyThemeSlider;

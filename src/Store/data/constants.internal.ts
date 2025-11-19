@@ -1,3 +1,4 @@
+import { getUUIDv7 } from '../../Utils';
 import {
 	IDataSlice,
 	IHistoryType,
@@ -40,7 +41,7 @@ const generateCheckHistory = (count: number): IHistoryItemChecked[] => {
 	];
 
 	return dates.map((date, index) => ({
-		id: `check-${Date.now()}-${index}`,
+		id: `check-${getUUIDv7()}-${date}-${index}`,
 		date,
 		type: IHistoryType.Check,
 		result: results[Math.floor(Math.random() * results.length)],
@@ -52,7 +53,7 @@ const generateReadHistory = (count: number): IHistoryItemRead[] => {
 	const dates = generateRandomDates(count);
 
 	return dates.map((date, index) => ({
-		id: `read-${Date.now()}-${index}`,
+		id: `read-${getUUIDv7()}-${date}-${index}`,
 		date,
 		type: IHistoryType.Read,
 	}));

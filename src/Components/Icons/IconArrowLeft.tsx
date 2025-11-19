@@ -16,9 +16,9 @@ const IconArrowLeftUnstyled = ({ className }: IIconProps) => {
 				id="Icon"
 				d="M33 18L15 36M15 36L33 54M15 36H57"
 				stroke="black"
-				stroke-width="4"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="4"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);
